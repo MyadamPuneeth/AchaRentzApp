@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="login-section">
+    <div class="logo-section-smallone">
+        <a class="acha-rentz-logo" href="#"><img src="~/images/acha-rentz-logo.png" alt="acha-rentz-logo"></a>
+        <p>________________________________________________________________________</p>
+        <p>or Login With</p>
+        <div class="social-login">
+            <a href="#"><img src="~/images/google-logo.png" alt="Google"></a>
+            <a href="#"><img src="~/images/apple-logo.png" alt="Apple"></a>
+            <a href="#"><img src="~/images/microsoft-logo.png" alt="Microsoft"></a>
+        </div>
+        <p>________________________________________________________________________</p>
+        <p>Not a Member?</p>
+        <p><a asp-action="RegistrationPage">Register Here</a></p>
+    </div>
+    <div class="login-box">
+        <h2>Login</h2>
+        <form>
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <div class="remember-me">
+                <input type="checkbox" id="remember">
+                <label for="remember">Remember me</label>
+            </div>
+            <button type="submit">Login</button>
+            <a href="#" class="forgot-password">Forgot Password</a>
+        </form>
+        
+        
+    </div>
+</section>

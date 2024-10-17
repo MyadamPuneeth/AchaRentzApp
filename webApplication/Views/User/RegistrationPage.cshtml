@@ -1,0 +1,37 @@
+﻿@model webApplication.Models.User
+@{
+    ViewData["Title"] = "RegisterationPage";
+}
+
+<section class="register-section">
+    <div class="logo-section-smallone">
+        <a class="acha-rentz-logo" href="#"><img src="~/images/acha-rentz-logo.png" alt="acha-rentz-logo"></a>
+        <p>________________________________________________________________________</p>
+        <p>or register with</p>
+        <div class="social-register">
+            <a href="#"><img src="~/images/google-logo.png" alt="Google"></a>
+            <a href="#"><img src="~/images/apple-logo.png" alt="Apple"></a>
+            <a href="#"><img src="~/images/microsoft-logo.png" alt="Microsoft"></a>
+        </div>
+        <p>________________________________________________________________________</p>
+        <p>Already a member!!</p>
+        <p><a asp-action="LoginPage">Login Here</a></p>
+    </div>
+    <div class="register-box">
+        <h2>Register</h2>
+        <form asp-controller="User" asp-action="RegistrationPage" method="post">
+            <input asp-for="UserName"   type="text" placeholder="Username" required />
+            <input asp-for="Password"  type="password" placeholder="Password" id="password" required />
+            <input  type="password" placeholder="Re-enter Password" id="confirm-password" required />
+            <div class="remember-me">
+                <input type="checkbox" required />
+                <label for="remember">I agree to Terms and Conditions</label>
+            </div>
+            <button type="submit">Continue</button>
+        </form>
+
+
+    </div>
+</section>
+
+<script src="~/js/site.js"></script>

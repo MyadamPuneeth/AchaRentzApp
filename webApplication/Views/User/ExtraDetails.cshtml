@@ -1,0 +1,53 @@
+﻿@model webApplication.Models.User
+@{
+    ViewData["Title"] = "ExtraRegistrationDetailsPage";
+}
+
+<div class="registration-form-body">
+    <div class="registration-form">
+        <h2>Registration</h2>
+
+        <form asp-controller="User" asp-action="ExtraDetails" method="post">
+            <div class="form-for-registration-body">
+                <div class="form-block-left">
+                    <div class="form-group">
+                        <input asp-for="FirstName" type="text" id="firstname" name="FirstName" placeholder="First Name*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="LastName" type="text" id="lastname" name="LastName" placeholder="Last Name*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="PhoneNumber" type="tel" id="phonenumber" name="PhoneNumber" placeholder="Phone Number*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="AlternatePhoneNumber" type="tel" id="alternatephonenumber" name="AlternatePhoneNumber" placeholder="Alternate Phone Number">
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Email" type="email" id="email" name="Email" placeholder="Email*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="aadhaar" name="GovtIdNumber" placeholder="AadharNumber">
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Address" id="address" name="Address" placeholder="Address*" required></input>
+                    </div>
+                </div>
+
+                <div class="form-block-right">
+                    
+
+                    <div class="form-group-button">
+                        <div class="small-form-button"><input type="file" id="uploadfile" name="UploadFile" placeholder="Uploadfile Aadhar Card"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="form-button" type="submit">Register</button>
+        </form>
+    </div>
+</div>
