@@ -74,7 +74,7 @@ namespace webApplication.Controllers
 
                     _context.SaveChanges(); // Save changes to the database
 
-                    return RedirectToAction("HomePage", "Home"); // Redirect on successful update
+                    return RedirectToAction("LoginPage", "SignIn"); // Redirect on successful update
                 }
                 else
                 {

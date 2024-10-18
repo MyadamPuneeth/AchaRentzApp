@@ -1,4 +1,6 @@
-﻿@{
+﻿@model webApplication.Models.SignInViewModel
+
+@{
     ViewData["Title"] = "Login";
 }
 
@@ -14,13 +16,13 @@
         </div>
         <p>________________________________________________________________________</p>
         <p>Not a Member?</p>
-        <p><a asp-action="RegistrationPage">Register Here</a></p>
+        <p><a asp-controller="User" asp-action="RegistrationPage">Register Here</a></p>
     </div>
     <div class="login-box">
         <h2>Login</h2>
-        <form>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
+        <form asp-controller="SignIn" asp-action="LoginPage">
+            <input asp-for="UserName" type="text" placeholder="Username" required>
+            <input asp-for="Password" type="password" placeholder="Password" required>
             <div class="remember-me">
                 <input type="checkbox" id="remember">
                 <label for="remember">Remember me</label>
