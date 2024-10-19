@@ -23,5 +23,7 @@ namespace webApplication.Models
         public string? FirstName { get; set; }
 
         public string? LastName { get; set; }
+
+        public string? UserType { get; set; }
     }
 }

@@ -22,6 +22,10 @@
                         <input asp-for="PhoneNumber" type="tel" id="phonenumber" name="PhoneNumber" placeholder="Phone Number*" required>
                     </div>
 
+                    
+                </div>
+
+                <div class="form-block-right">
                     <div class="form-group">
                         <input asp-for="AlternatePhoneNumber" type="tel" id="alternatephonenumber" name="AlternatePhoneNumber" placeholder="Alternate Phone Number">
                     </div>
@@ -37,15 +41,12 @@
                     <div class="form-group">
                         <input asp-for="Address" id="address" name="Address" placeholder="Address*" required></input>
                     </div>
-                </div>
-
-                <div class="form-block-right">
-                    
 
                     <div class="form-group-button">
                         <div class="small-form-button"><input type="file" id="uploadfile" name="UploadFile" placeholder="Uploadfile Aadhar Card"></div>
                     </div>
                 </div>
+
             </div>
             <button class="form-button" type="submit">Register</button>
         </form>

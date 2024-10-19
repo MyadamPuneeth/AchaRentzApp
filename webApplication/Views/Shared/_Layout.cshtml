@@ -12,12 +12,21 @@
 <body>
     @if (HttpContextAccessor.HttpContext.Session.GetString("UserName") != null)
     {
-        <!-- User is authenticated -->
-        @await Html.PartialAsync("_HeaderAfterLogin")
+        // User is authenticated
+        if(HttpContextAccessor.HttpContext.Session.GetString("UserType") == "PremiumUser")
+        {
+            // User is a Premium User
+            @await Html.PartialAsync("_HeaderAfterSubscribing")
+        }
+        else
+        {
+            // User is not a Premium User
+            @await Html.PartialAsync("_HeaderAfterLogin")
+        }
     }
     else
     {
-        <!-- User is not authenticated -->
+        // User is not authenticated
         @await Html.PartialAsync("_HeaderBeforeLogin")
     }
 

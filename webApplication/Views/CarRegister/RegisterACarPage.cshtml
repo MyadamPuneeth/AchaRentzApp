@@ -1,0 +1,32 @@
+﻿@model webApplication.Models.CarDetails
+
+@{
+    ViewData["Title"] = "RegisterACarPage";
+}
+
+
+<div class="register-a-car-section">
+    <div class="register-a-car-container">
+        <h2>Register your car in just a few steps</h2>
+        <form class="register-a-car-form" asp-controller="CarRegister" asp-action="RegisterACarPage" method="post">
+            <input asp-for="" type="text" placeholder="Car Name" required>
+            <input type="text" placeholder="Model Year" required>
+            <input type="text" placeholder="Address" required>
+            <div class="sharing-days">
+                <label>Sharing Days</label>
+                <input type="number" value="30" readonly>
+            </div>
+            <div class="earnings-info">
+                <p>Potential Monthly Earnings</p>
+                <p>₹15000 - ₹18000</p>
+            </div>
+            <button type="submit" class="register-a-car-btn">Register</button>
+        </form>
+    </div>
+    <div class="acha-rentz-promo">
+        <img class="register-a-car-page-logo" src="~/images/acha-rentz-logo.png" alt="AchaRentzLogo" />
+        <p>Rentals Made Super Easy</p>
+        <img src="~/images/home-page-sport-car.png" alt="Car">
+    </div>
+</div>
+

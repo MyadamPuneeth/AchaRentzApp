@@ -38,6 +38,10 @@ public class SignInController : Controller
                 // Password matches, set session and redirect to home page
                 HttpContext.Session.SetInt32("UserId", user.UserId);
                 HttpContext.Session.SetString("UserName", user.UserName);
+                if(user.UserType == "PremiumUser")
+                {
+                    HttpContext.Session.SetString("UserType", user.UserType);
+                }
                 //HttpContext.Session.SetString("UserType", user.IsPremium ? "Premium" : "NonPremium");
 
                 return RedirectToAction("HomePage", "Home");

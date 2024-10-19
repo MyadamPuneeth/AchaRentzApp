@@ -5,12 +5,12 @@
 
 <header>
     <div class="logo">
-        <a asp-controller="Main" asp-action="HomePage"><img src="~/images/acha-rentz-logo-black.png" /></a>
+        <a asp-controller="Home" asp-action="HomePage"><img src="~/images/acha-rentz-logo-black.png" /></a>
     </div>
     <nav>
         <ul>
-            <li><a href="#">Rent a Car</a></li>
-            <li><a href="#">Register a Car</a></li>
+            <li><a asp-controller="SignIn" asp-action="LoginPage">Rent a Car</a></li>
+            <li><a asp-controller="SignIn" asp-action="LoginPage">Register a Car</a></li>
         </ul>
     </nav>
     <div class="auth-links">

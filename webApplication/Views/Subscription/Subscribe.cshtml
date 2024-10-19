@@ -1,0 +1,15 @@
+﻿@model webApplication.Models.User
+
+@{
+    ViewBag.Title = "Subscription Page";
+}
+
+<h2>Buy Subscription</h2>
+
+<p>Click the button below to buy a Premium Subscription!</p>
+
+<form asp-action="BuySubscription" method="post">
+    <input type="hidden" asp-for="UserType" />
+    <button onclick="document.getElementById('UserType').value = 'PremiumUser'" type="submit">Buy Premium Subscription</button>
+</form>
+

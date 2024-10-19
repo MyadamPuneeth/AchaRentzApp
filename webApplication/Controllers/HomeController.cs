@@ -18,7 +18,6 @@ namespace webApplication.Controllers
         {
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();

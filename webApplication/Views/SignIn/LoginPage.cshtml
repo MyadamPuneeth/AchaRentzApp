@@ -20,7 +20,7 @@
     </div>
     <div class="login-box">
         <h2>Login</h2>
-        <form asp-controller="SignIn" asp-action="LoginPage">
+        <form asp-controller="SignIn" asp-action="LoginPage" method="post">
             <input asp-for="UserName" type="text" placeholder="Username" required>
             <input asp-for="Password" type="password" placeholder="Password" required>
             <div class="remember-me">
