@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webApplication.Models;
 
@@ -11,9 +12,11 @@ using webApplication.Models;
 namespace webApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019061918_addColumnsInCarsTable")]
+    partial class addColumnsInCarsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,167 +231,44 @@ namespace webApplication.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
 
-                    b.Property<DateTime?>("AvailableFrom")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("AvailableUntil")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Color")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("DistanceFromUser")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Drivetrain")
+                    b.Property<string>("CarCompany")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EngineType")
+                    b.Property<string>("CarLicensePlate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("ExtraMileageFee")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("FuelCapacity")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("FuelEfficiency")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("FuelType")
+                    b.Property<string>("CarName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("HasAirConditioning")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("HasBackupCamera")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("HasBluetooth")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("HasChildSeat")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("HasGPS")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("HasHeatedSeats")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("HasMileageLimit")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal?>("Height")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool?>("HomeDeliveryAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("HorsePower")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("InsuranceExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("InsuranceIncluded")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("InsuranceNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InsuranceProvider")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsOutOfStateAllowed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsPetFriendly")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsSmokingAllowed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastServicedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("Length")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("LicensePlate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Make")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long?>("InsuranceNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<decimal?>("Mileage")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("MileageLimit")
+                    b.Property<int?>("ModelYear")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MyProperty")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NoOfDays")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("PricePerDay")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("MinimumRentalPeriod")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("NumberOfDoors")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OwnerAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerPhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("RcNumber")
+                    b.Property<long?>("RcNumber")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("RegistrationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RegistrationState")
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RentalLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("RentalPricePerDay")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("SeatingCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Torque")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Transmission")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Trim")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("UserRating")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Width")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("Year")
-                        .HasColumnType("int");
 
                     b.HasKey("CarId");
 

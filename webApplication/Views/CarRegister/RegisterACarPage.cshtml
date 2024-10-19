@@ -9,12 +9,12 @@
     <div class="register-a-car-container">
         <h2>Register your car in just a few steps</h2>
         <form class="register-a-car-form" asp-controller="CarRegister" asp-action="RegisterACarPage" method="post">
-            <input asp-for="" type="text" placeholder="Car Name" required>
-            <input type="text" placeholder="Model Year" required>
-            <input type="text" placeholder="Address" required>
+            <input asp-for="Make" type="text" placeholder="Car Company" required>
+            <input asp-for="Model" type="text" placeholder="Car Name" required>
+            <input asp-for="OwnerAddress" type="text" placeholder="Address" required>
             <div class="sharing-days">
                 <label>Sharing Days</label>
-                <input type="number" value="30" readonly>
+                <input asp-for="MinimumRentalPeriod" type="number" placeholder="30">
             </div>
             <div class="earnings-info">
                 <p>Potential Monthly Earnings</p>

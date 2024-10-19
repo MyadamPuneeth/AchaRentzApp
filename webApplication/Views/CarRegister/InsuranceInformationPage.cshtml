@@ -1,0 +1,46 @@
+﻿@model webApplication.Models.CarDetails
+
+@{
+    ViewData["Title"] = "InsuranceInformationPage";
+}
+
+<h1>InsuranceInformationPage</h1>
+
+<h4>CarDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="InsuranceInformationPage">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CarId" />
+            <div class="form-group">
+                <label asp-for="InsuranceNumber" class="control-label"></label>
+                <input asp-for="InsuranceNumber" class="form-control" />
+                <span asp-validation-for="InsuranceNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InsuranceIncluded" class="control-label"></label>
+                <input asp-for="InsuranceIncluded" class="form-control" />
+                <span asp-validation-for="InsuranceIncluded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InsuranceExpiryDate" class="control-label"></label>
+                <input asp-for="InsuranceExpiryDate" class="form-control" />
+                <span asp-validation-for="InsuranceExpiryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InsuranceProvider" class="control-label"></label>
+                <input asp-for="InsuranceProvider" class="form-control" />
+                <span asp-validation-for="InsuranceProvider" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

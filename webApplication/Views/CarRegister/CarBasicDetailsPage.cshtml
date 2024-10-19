@@ -1,0 +1,24 @@
+﻿@model webApplication.Models.CarDetails
+
+<div class="car-basic-info-section">
+    <h2>Basic Car Information</h2>
+    <form asp-controller="CarRegister" asp-action="CarBasicDetailsPage" method="post">
+        <div class="car-info-item">
+            <input asp-for="RcNumber" type="text" id="make" placeholder="RC Number">
+        </div>
+        <div class="car-info-item">
+            <input asp-for="InsuranceNumber" type="text" id="model" placeholder="Insurance Number">
+        </div>
+        <div class="car-info-item">
+            <input asp-for="LicensePlate" type="text" id="model"  placeholder="LicensePlate">
+        </div>
+        <div class="car-info-item">
+            <input asp-for="Mileage" type="text" id="model"  placeholder="Mileage">
+        </div>
+        <div class="car-info-item">
+            <input asp-for="Year" type="number" id="year" placeholder="Year">
+        </div>
+        <button type="submit">Next</button>
+    </form>
+    
+</div>

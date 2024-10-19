@@ -1,0 +1,56 @@
+﻿@model webApplication.Models.CarDetails
+
+@{
+    ViewData["Title"] = "CarFeaturesPage";
+}
+
+<h1>CarFeaturesPage</h1>
+
+<h4>CarDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CarFeaturesPage">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CarId" />
+            <div class="form-group">
+                <label asp-for="HasAirConditioning" class="control-label"></label>
+                <input asp-for="HasAirConditioning" class="form-control" />
+                <span asp-validation-for="HasAirConditioning" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasGPS" class="control-label"></label>
+                <input asp-for="HasGPS" class="form-control" />
+                <span asp-validation-for="HasGPS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasBluetooth" class="control-label"></label>
+                <input asp-for="HasBluetooth" class="form-control" />
+                <span asp-validation-for="HasBluetooth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasBackupCamera" class="control-label"></label>
+                <input asp-for="HasBackupCamera" class="form-control" />
+                <span asp-validation-for="HasBackupCamera" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasHeatedSeats" class="control-label"></label>
+                <input asp-for="HasHeatedSeats" class="form-control" />
+                <span asp-validation-for="HasHeatedSeats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HasChildSeat" class="control-label"></label>
+                <input asp-for="HasChildSeat" class="form-control" />
+                <span asp-validation-for="HasChildSeat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

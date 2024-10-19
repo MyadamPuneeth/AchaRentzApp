@@ -1,0 +1,61 @@
+﻿@model webApplication.Models.CarDetails
+
+@{
+    ViewData["Title"] = "RentalInformationPage";
+}
+
+<h1>RentalInformationPage</h1>
+
+<h4>CarDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RentalInformationPage">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CarId" />
+            <div class="form-group">
+                <label asp-for="RentalPricePerDay" class="control-label"></label>
+                <input asp-for="RentalPricePerDay" class="form-control" />
+                <span asp-validation-for="RentalPricePerDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsAvailable" class="control-label"></label>
+                <input asp-for="IsAvailable" class="form-control" />
+                <span asp-validation-for="IsAvailable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RentalLocation" class="control-label"></label>
+                <input asp-for="RentalLocation" class="form-control" />
+                <span asp-validation-for="RentalLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableFrom" class="control-label"></label>
+                <input asp-for="AvailableFrom" class="form-control" />
+                <span asp-validation-for="AvailableFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailableUntil" class="control-label"></label>
+                <input asp-for="AvailableUntil" class="form-control" />
+                <span asp-validation-for="AvailableUntil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinimumRentalPeriod" class="control-label"></label>
+                <input asp-for="MinimumRentalPeriod" class="form-control" />
+                <span asp-validation-for="MinimumRentalPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HomeDeliveryAvailable" class="control-label"></label>
+                <input asp-for="HomeDeliveryAvailable" class="form-control" />
+                <span asp-validation-for="HomeDeliveryAvailable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
