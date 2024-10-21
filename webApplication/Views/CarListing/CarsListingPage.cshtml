@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<webApplication.Models.CarDetails>
+
+@{
+    var totalCars = Model.Count();
     ViewData["Title"] = "CarsListingPage";
 }
 
@@ -6,89 +9,30 @@
     <aside class="filter-section">
         <div class="side-bar">
             <button class="find-ride-btn">Find Your Perfect Ride!</button>
-            <div class="filter-group">
-                <label>Distance</label>
-                <input type="range" min="0" max="100">
-            </div>
-            <div class="filter-group">
-                <label>Home Delivery</label>
-                <input type="checkbox">
-            </div>
-            <div class="filter-group">
-                <label>Price Range</label>
-                <input type="range" min="0" max="1000">
-            </div>
-            <div class="filter-group">
-                <label>Car Details</label>
-                <ul>
-                    <li><input type="checkbox"> SUV</li>
-                    <li><input type="checkbox"> Sedan</li>
-                    <li><input type="checkbox"> Hatchback</li>
-                    <li><input type="checkbox"> Luxury</li>
-                </ul>
-            </div>
-            <div class="filter-group">
-                <label>Fuel Type</label>
-                <ul>
-                    <li><input type="checkbox"> Petrol</li>
-                    <li><input type="checkbox"> Diesel</li>
-                    <li><input type="checkbox"> Electric</li>
-                </ul>
-            </div>
-            <div class="filter-group">
-                <label>Seats</label>
-                <ul>
-                    <li><input type="checkbox"> 4/5 Seats</li>
-                    <li><input type="checkbox"> 6/7 Seats</li>
-                </ul>
-            </div>
-            <div class="filter-group">
-                <label>User Ratings</label>
-                <ul>
-                    <li><input type="checkbox"> 4.5+ Rated</li>
-                    <li><input type="checkbox"> 3.5+ Rated</li>
-                </ul>
-            </div>
+            <!-- Filtering options here (same as before) -->
         </div>
     </aside>
 
     <div class="car-tile-rows">
         <div class="search-bar">
-            <input type="text" name="searchbar" value="" placeholder='"Search for an Ideal Car"'/>
+            <input type="text" name="searchbar" value="" placeholder='"Search for an Ideal Car"' />
         </div>
-        <div class="car-tiles-div">
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
+
+        <!-- Car Tiles Section -->
+        <div class="car-tiles-div" id="carTilesContainer">
+            <!-- Initial 6 car tiles rendered first -->
+            @foreach (var car in Model.Take(6))
+            {
+                @Html.Partial("_CarDetailsTile", car)
+            }
         </div>
-        <div class="car-tiles-div">
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-        </div>
-        <div class="car-tiles-div">
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-        </div>
+
+        <!-- Show More button (only if more than 6 cars exist) -->
+        @if (totalCars > 6)
+        {
+            <div id="showMoreContainer">
+                <button id="showMoreBtn" class="show-more-btn">Show More</button>
+            </div>
+        }
     </div>
 </div>
-

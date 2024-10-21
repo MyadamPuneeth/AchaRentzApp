@@ -1,0 +1,23 @@
+﻿@model webApplication.Models.RentalDetails
+
+<h2>Car Booking Details</h2>
+<form asp-controller="CarListing" asp-action="ConfirmBooking" method="post">
+    <div>
+        <label>From Date:</label>
+        <input type="text" asp-for="FromDateTime" readonly />
+    </div>
+    <div>
+        <label>To Date:</label>
+        <input type="text" asp-for="ToDateTime" readonly />
+    </div>
+    <div>
+        <label>Rental Duration (Hours):</label>
+        <input type="text" asp-for="RentalDuration" readonly />
+    </div>
+    <div>
+        <label>Location:</label>
+        <input type="text" asp-for="Location" readonly />
+    </div>
+    <!-- Add more fields as necessary -->
+    <button type="submit">Confirm Booking</button>
+</form>

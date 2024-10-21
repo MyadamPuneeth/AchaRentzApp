@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webApplication.Models;
 
@@ -11,9 +12,11 @@ using webApplication.Models;
 namespace webApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020152823_addedNewNumberOfTripsColumnInCarsModel")]
+    partial class addedNewNumberOfTripsColumnInCarsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,41 +223,6 @@ namespace webApplication.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RentalDetails", b =>
-                {
-                    b.Property<int>("RentalId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentalId"));
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FromDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("RentalDuration")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ToDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RentalId");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RentalDetails");
-                });
-
             modelBuilder.Entity("webApplication.Models.CarDetails", b =>
                 {
                     b.Property<int>("CarId")
@@ -272,16 +240,10 @@ namespace webApplication.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal?>("DistanceFromUser")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("EngineType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FAQs")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FuelCapacity")
@@ -341,9 +303,6 @@ namespace webApplication.Migrations
                     b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MainImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Make")
                         .HasColumnType("nvarchar(max)");
 
@@ -366,6 +325,7 @@ namespace webApplication.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("OwnerAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("RcNumber")
@@ -383,23 +343,14 @@ namespace webApplication.Migrations
                     b.Property<decimal?>("RentalPricePerDay")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Reviews")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("SeatingCapacity")
                         .HasColumnType("int");
-
-                    b.Property<string>("Thumbnails")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Transmission")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("UserRating")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Width")
                         .HasColumnType("decimal(18,2)");
@@ -524,25 +475,6 @@ namespace webApplication.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RentalDetails", b =>
-                {
-                    b.HasOne("webApplication.Models.CarDetails", "CarDetails")
-                        .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("webApplication.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CarDetails");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("webApplication.Models.Owner", b =>

@@ -36,6 +36,7 @@ public class SignInController : Controller
             if (user.Password == model.Password)
             {
                 // Password matches, set session and redirect to home page
+                HttpContext.Session.SetInt32("IsUserLoggedIn", 1);
                 HttpContext.Session.SetInt32("UserId", user.UserId);
                 HttpContext.Session.SetString("UserName", user.UserName);
                 if(user.UserType == "PremiumUser")

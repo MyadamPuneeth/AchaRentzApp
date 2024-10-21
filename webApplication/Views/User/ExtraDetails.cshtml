@@ -4,12 +4,23 @@
 }
 
 <div class="registration-form-body">
+    <div class="above-the-form-regis">
+        <div class="img-above-the-form-regis">
+            <img src="~/Images/acha-rentz-logo-white.png" alt="Alternate Text" />
+        </div>
+        <div class="tagline">
+            <h2>Rentals Made Super Easy</h2>
+        </div>
+        <div class="carphoto">
+            <img src="~/Images/sport-car.png" alt="Alternate Text" />
+        </div>
+    </div>
     <div class="registration-form">
         <h2>Registration</h2>
 
         <form asp-controller="User" asp-action="ExtraDetails" method="post">
             <div class="form-for-registration-body">
-                <div class="form-block-left">
+                <div class="form-block-left">   
                     <div class="form-group">
                         <input asp-for="FirstName" type="text" id="firstname" name="FirstName" placeholder="First Name*" required>
                     </div>
@@ -21,14 +32,13 @@
                     <div class="form-group">
                         <input asp-for="PhoneNumber" type="tel" id="phonenumber" name="PhoneNumber" placeholder="Phone Number*" required>
                     </div>
-
-                    
-                </div>
-
-                <div class="form-block-right">
                     <div class="form-group">
                         <input asp-for="AlternatePhoneNumber" type="tel" id="alternatephonenumber" name="AlternatePhoneNumber" placeholder="Alternate Phone Number">
                     </div>
+                </div>
+
+                <div class="form-block-right">
+                    
 
                     <div class="form-group">
                         <input asp-for="Email" type="email" id="email" name="Email" placeholder="Email*" required>

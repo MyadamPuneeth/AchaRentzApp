@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using webApplication.Models;
 
 namespace webApplication.Controllers
@@ -26,6 +27,7 @@ namespace webApplication.Controllers
             if (ModelState.IsValid)
             { 
                 _context.CarDetails.Add(carModel);
+                HttpContext.Session.SetInt32("CarId", carModel.CarId);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("CarBasicDetailsPage", new { id = carModel.CarId});
             }
@@ -203,7 +205,6 @@ namespace webApplication.Controllers
                     user.HasBackupCamera = featuresModel.HasBackupCamera;
                     user.HasChildSeat = featuresModel.HasChildSeat;
                     user.HasHeatedSeats = featuresModel.HasHeatedSeats;
-                    user.HasMileageLimit = featuresModel.HasMileageLimit;
 
                     await _context.SaveChangesAsync();
                     return RedirectToAction("ExteriorSpecificationsPage", new { id = featuresModel.CarId });
@@ -270,11 +271,26 @@ namespace webApplication.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var userId = HttpContext.Session.GetInt32("UserId");
+
+
+                var owner = new Owner
+                {
+                    UserId = userId.Value,
+                    CarId = insuranceModel.CarId
+                };
+
+                _context.Owners.Add(owner);
+
                 if (user != null)
                 {
                     user.InsuranceIncluded = insuranceModel.InsuranceIncluded;
                     user.InsuranceExpiryDate = insuranceModel.InsuranceExpiryDate;
                     user.InsuranceProvider = insuranceModel.InsuranceProvider;
+                    user.LastServicedDate = insuranceModel.LastServicedDate;
+                    user.RegistrationState= insuranceModel.RegistrationState;
+
+                    
 
                     await _context.SaveChangesAsync();
                     return RedirectToAction("HomePage", "Home");

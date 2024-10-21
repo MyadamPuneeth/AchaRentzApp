@@ -1,94 +1,87 @@
-﻿@{
+﻿@model IEnumerable<webApplication.Models.CarDetails>
+@{
+    var totalCars = Model.Count();
     ViewData["Title"] = "CarsListingPage";
 }
-<h1>Premium User</h1>
 <div class="main-body">
     <aside class="filter-section">
         <div class="side-bar">
             <button class="find-ride-btn">Find Your Perfect Ride!</button>
-            <div class="filter-group">
-                <label>Distance</label>
-                <input type="range" min="0" max="100">
-            </div>
-            <div class="filter-group">
-                <label>Home Delivery</label>
-                <input type="checkbox">
-            </div>
-            <div class="filter-group">
-                <label>Price Range</label>
-                <input type="range" min="0" max="1000">
-            </div>
-            <div class="filter-group">
-                <label>Car Details</label>
-                <ul>
-                    <li><input type="checkbox"> SUV</li>
-                    <li><input type="checkbox"> Sedan</li>
-                    <li><input type="checkbox"> Hatchback</li>
-                    <li><input type="checkbox"> Luxury</li>
-                </ul>
-            </div>
-            <div class="filter-group">
-                <label>Fuel Type</label>
-                <ul>
-                    <li><input type="checkbox"> Petrol</li>
-                    <li><input type="checkbox"> Diesel</li>
-                    <li><input type="checkbox"> Electric</li>
-                </ul>
-            </div>
-            <div class="filter-group">
-                <label>Seats</label>
-                <ul>
-                    <li><input type="checkbox"> 4/5 Seats</li>
-                    <li><input type="checkbox"> 6/7 Seats</li>
-                </ul>
-            </div>
-            <div class="filter-group">
-                <label>User Ratings</label>
-                <ul>
-                    <li><input type="checkbox"> 4.5+ Rated</li>
-                    <li><input type="checkbox"> 3.5+ Rated</li>
-                </ul>
+            <div class="filter-options">
+                <h3>Filters</h3>
+                <label>Brand:</label>
+                <select id="brandSelect">
+                    <option value="all">All</option>
+                    <option value="toyota">Toyota</option>
+                    <option value="bmw">BMW</option>
+                    <option value="audi">Audi</option>
+                </select>
+                <label>Price Range:</label>
+                <input type="range" min="1000" max="100000" value="50000" id="priceRange">
+                <label>Fuel Type:</label>
+                <select id="fuelTypeSelect">
+                    <option value="all">All</option>
+                    <option value="petrol">Petrol</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="electric">Electric</option>
+                </select>
             </div>
         </div>
     </aside>
 
     <div class="car-tile-rows">
         <div class="search-bar">
-            <input type="text" name="searchbar" value="" placeholder='"Search for an Ideal Car"'/>
+            <input type="text" name="searchbar" placeholder="Search for an Ideal Car" />
         </div>
-        <div class="car-tiles-div">
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-        </div>
-        <div class="car-tiles-div">
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-        </div>
-        <div class="car-tiles-div">
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
-            <section class="car-list">
-                @await Html.PartialAsync("_CarDetailsTile")
-            </section>
+
+        <div class="car-tiles-div" id="carTilesContainer">
+            <!-- Render all car tiles -->
+            @foreach (var car in Model)
+            {
+                @Html.Partial("_CarDetailsTile", car)
+            }
         </div>
     </div>
 </div>
 
+<script>
+    // For filtering
+    $('.filter-options select, .filter-options input').change(function () {
+        $.get('/CarListing/FilterCars', {
+            brand: $('#brandSelect').val(),
+            maxPrice: $('#priceRange').val(),
+            fuelType: $('#fuelTypeSelect').val()
+        })
+            .done(function (response) {
+                if (response.success) {
+                    // Clear and reload the car container
+                    $('#carTilesContainer').empty();
+                    response.cars.forEach(function (car) {
+                        // Your existing car HTML template code here
+                    });
+                }
+            });
+    });
+
+    // For searching
+    let searchTimeout;
+    $('input[name="searchbar"]').on('input', function () {
+        clearTimeout(searchTimeout);
+        const searchTerm = $(this).val();
+
+        searchTimeout = setTimeout(function () {       
+            if (searchTerm.length >= 2) {
+                $.get('/CarListing/SearchCars', { searchTerm: searchTerm })
+                    .done(function (response) {
+                        if (response.success) {
+                            // Clear and reload the car container
+                            $('#carTilesContainer').empty();
+                            response.cars.forEach(function (car) {
+                                // Your existing car HTML template code here
+                            });
+                        }
+                    });
+            }
+        }, 300); // Debounce search for better performance
+    });
+</script>

@@ -15,6 +15,8 @@ namespace webApplication.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet<CarDetails> CarDetails { get; set; }
+        public DbSet<RentalDetails> RentalDetails { get; set; }
+
 
     }
 

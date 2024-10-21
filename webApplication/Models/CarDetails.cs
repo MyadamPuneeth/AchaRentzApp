@@ -9,12 +9,13 @@ namespace webApplication.Models
         // Primary Key
         public int CarId { get; set; }
 
+        public string? OwnerAddress { get; set; }
+
         // Basic Car Information
         public string? Make { get; set; }           // e.g., Toyota, Ford
         public string? Model { get; set; }          // e.g., Corolla, Mustang
         public int? Year { get; set; }              // e.g., 2020
         public string? LicensePlate { get; set; }   // e.g., ABC1234
-        public string? Trim { get; set; }           // e.g., SE, LE, Sport
         public long RcNumber { get; set; }
         public int InsuranceNumber { get; set; }
 
@@ -23,11 +24,7 @@ namespace webApplication.Models
         public string? FuelType { get; set; }       // e.g., Gasoline, Diesel, Electric
         public decimal? Mileage { get; set; }       // e.g., 50Kmph
         public string? Transmission { get; set; }   // e.g., Manual, Automatic
-        public int? HorsePower { get; set; }        // e.g., 300 hp
-        public int? Torque { get; set; }            // e.g., 350 Nm
-        public string? Drivetrain { get; set; }     // e.g., FWD, AWD, RWD
-        public decimal? FuelCapacity { get; set; }  // e.g., 55.5 liters
-        public decimal? FuelEfficiency { get; set; } // e.g., 25.0 mpg
+        public int FuelCapacity { get; set; }
 
         // Rental Information
         public decimal? RentalPricePerDay { get; set; }  // e.g., $50 per day
@@ -43,12 +40,6 @@ namespace webApplication.Models
         public DateTime? InsuranceExpiryDate { get; set; } // Expiry date of insurance
         public string? InsuranceProvider { get; set; }   // Insurance company
 
-        // Owner Information
-        public string? OwnerName { get; set; }           // Owner's name
-        public string? OwnerPhoneNumber { get; set; }    // Owner's contact number
-        public string? OwnerEmail { get; set; }          // Owner's contact email
-        public string? OwnerAddress { get; set; }        // Owner's address
-
         // Registration and Documentation Information
         public DateTime? RegistrationDate { get; set; }  // Date of registration
         public DateTime? LastServicedDate { get; set; }  // Last service date
@@ -60,7 +51,6 @@ namespace webApplication.Models
         public bool? HasBluetooth { get; set; }          // true/false
         public bool? HasBackupCamera { get; set; }       // true/false
         public bool? HasHeatedSeats { get; set; }        // true/false
-        public bool? IsPetFriendly { get; set; }         // true/false
         public bool? HasChildSeat { get; set; }          // true/false (child seat available)
 
         // Exterior Specifications
@@ -70,13 +60,7 @@ namespace webApplication.Models
         public decimal? Height { get; set; }             // e.g., 1.6 meters
         public int? SeatingCapacity { get; set; }        // e.g., 5 seats
         public int? NumberOfDoors { get; set; }          // e.g., 4 doors
-
-        // Rental Conditions
-        public bool? IsSmokingAllowed { get; set; }      // true/false if smoking is allowed
         public bool? IsOutOfStateAllowed { get; set; }   // true/false if the car can be driven out of state
-        public bool? HasMileageLimit { get; set; }       // true/false if there is a mileage limit
-        public decimal? MileageLimit { get; set; }       // e.g., 200 miles per day
-        public decimal? ExtraMileageFee { get; set; }    // e.g., $0.50 per extra mile
 
         // Additional Rental Details
         public decimal? DistanceFromUser { get; set; }   // Distance in kilometers/miles from the user
@@ -84,8 +68,18 @@ namespace webApplication.Models
 
         // Additional Notes
         public string? Notes { get; set; }
+        public int? NumberOfTrips { get; set; }
+
+        //temp
+        public string? MainImageUrl { get; set; }
+        public string? Thumbnails { get; set; }
+        public string? Reviews { get; set; }
+        public string? FAQs { get; set; }
+        public string? Username{ get; set; }
+        public string? Comment { get; set; }
 
     }
+
 }
 
 /* 
@@ -94,3 +88,5 @@ SignInController
 
 
  */
+
+ 
