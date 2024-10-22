@@ -6,17 +6,14 @@
 @{
     var isUserLoggedIn = HttpContextAccessor.HttpContext.Session.GetInt32("IsUserLoggedIn") == 1;
 
-    var rentCarUrl = isUserLoggedIn
-    ? Url.Action("CarsListingPagePremium", "CarListing")
-    : Url.Action("LoginPage", "SignIn");
+    var rentCarUrl = Url.Action("CarsListingPagePremium", "CarListing");
 
     var registerCarUrl = isUserLoggedIn
     ? Url.Action("RegisterACarPage", "CarRegister")
     : Url.Action("LoginPage", "SignIn");
 
-    var getACar = isUserLoggedIn
-    ? Url.Action("CarsListingPagePremium", "CarListing")
-    : Url.Action("LoginPage", "SignIn");
+    var getACar = Url.Action("CarsListingPagePremium", "CarListing");
+
 }
 
 <div class="home-banner">

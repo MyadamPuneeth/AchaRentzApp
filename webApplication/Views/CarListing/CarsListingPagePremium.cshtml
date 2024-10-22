@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<webApplication.Models.CarDetails>
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     var totalCars = Model.Count();
     ViewData["Title"] = "CarsListingPage";
@@ -6,26 +7,36 @@
 <div class="main-body">
     <aside class="filter-section">
         <div class="side-bar">
-            <button class="find-ride-btn">Find Your Perfect Ride!</button>
-            <div class="filter-options">
-                <h3>Filters</h3>
-                <label>Brand:</label>
-                <select id="brandSelect">
-                    <option value="all">All</option>
-                    <option value="toyota">Toyota</option>
-                    <option value="bmw">BMW</option>
-                    <option value="audi">Audi</option>
-                </select>
-                <label>Price Range:</label>
-                <input type="range" min="1000" max="100000" value="50000" id="priceRange">
-                <label>Fuel Type:</label>
-                <select id="fuelTypeSelect">
-                    <option value="all">All</option>
-                    <option value="petrol">Petrol</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="electric">Electric</option>
-                </select>
-            </div>
+            <form asp-controller="Home" asp-action="HomePage" method="post">
+                <button class="find-ride-btn">Find Your Perfect Ride!</button>
+                <div class="filter-options">
+                    <h3>Filters</h3>
+
+                    @await Html.PartialAsync("_CarDateTime", new RentalDetails
+               {
+                   FromDateTime = TempData["FromDateTime"] != null ? (DateTime)TempData["FromDateTime"] : DateTime.Now,
+                   ToDateTime = TempData["ToDateTime"] != null ? (DateTime)TempData["ToDateTime"] : DateTime.Now.AddHours(1)
+               })
+                    <label>Brand:</label>
+                    <select id="brandSelect">
+                        <option value="all">All</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="bmw">BMW</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                    <label>Price Range:</label>
+                    <input type="range" min="1000" max="100000" value="50000" id="priceRange">
+                    <label>Fuel Type:</label>
+                    <select id="fuelTypeSelect">
+                        <option value="all">All</option>
+                        <option value="petrol">Petrol</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="electric">Electric</option>
+                    </select>
+                </div>
+            </form>
+            
+            
         </div>
     </aside>
 

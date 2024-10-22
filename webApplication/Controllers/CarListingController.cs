@@ -15,17 +15,17 @@ namespace webApplication.Controllers
         {
             _context = context;
         }
+
         public IActionResult CarsListingPagePremium()
         {
             IEnumerable<CarDetails> carDetails = _context.CarDetails.ToList();
             return View(carDetails);
         }
-
-
-        public IActionResult CarsListingPage()
+                
+        /*public IActionResult CarsListingPage()
         {
             return View();
-        }
+        }*/
 
         public IActionResult ConfirmBookingPage()
         {

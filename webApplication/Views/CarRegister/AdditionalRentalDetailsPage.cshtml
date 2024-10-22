@@ -4,33 +4,26 @@
     ViewData["Title"] = "AdditionalRentalDetailsPage";
 }
 
-<h1>AdditionalRentalDetailsPage</h1>
-
-<h4>CarDetails</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AdditionalRentalDetailsPage">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CarId" />
-            <div class="form-group">
+<div class="status-bar-car-basci-details-page">
+    @await Html.PartialAsync("_StatusBar")
+</div>
+<div class="car-basic-info-section-aligner">
+    <div class="car-basic-info-section">
+        <h2>Rental Information</h2>
+        <form asp-action="AdditionalRentalDetailsPage" method="post">
+            <div class="car-info-item">
                 <label asp-for="DistanceFromUser" class="control-label"></label>
                 <input asp-for="DistanceFromUser" class="form-control" />
-                <span asp-validation-for="DistanceFromUser" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="car-info-item">
                 <label asp-for="UserRating" class="control-label"></label>
                 <input asp-for="UserRating" class="form-control" />
-                <span asp-validation-for="UserRating" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="car-info-item">
                 <label asp-for="Notes" class="control-label"></label>
                 <input asp-for="Notes" class="form-control" />
-                <span asp-validation-for="Notes" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            <button type="submit">Next</button>
         </form>
     </div>
 </div>
@@ -39,3 +32,58 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<style>
+    .status-bar-car-basci-details-page {
+        display: flex;
+        justify-content: center;
+    }
+
+    .car-basic-info-section {
+        color: white;
+        background: #4D4D4D;
+        width: 50vw;
+        display: flex;
+        flex-direction: column;
+        height: 70vh;
+        border-radius: 5px;
+    }
+
+        .car-basic-info-section form {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 55vh;
+            align-items: center;
+            margin-top: 2vh;
+        }
+
+    .car-basic-info-section-aligner {
+        margin-top: 3vh;
+        color: white;
+        display: flex;
+        justify-content: center;
+    }
+
+    .car-info-item {
+        display: flex;
+        width: 35vw;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .car-info-item input {
+            height: 5vh;
+            width: 20vw;
+            padding-left: 1vw;
+        }
+
+    .car-basic-info-section button {
+        width: 10vw;
+        height: 7vh;
+        background: #29D23D;
+        border: 0;
+        color: white;
+        font-weight: bold;
+        border-radius: 3px;
+    }
+</style>

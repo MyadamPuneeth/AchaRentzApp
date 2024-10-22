@@ -98,7 +98,7 @@ namespace webApplication.Controllers
                     
                     _context.SaveChanges();
 
-                    return RedirectToAction("RentalInformationPage", new {id = carTechnicalModel.CarId});
+                    return RedirectToAction("RentalInformationPage", new {id = user.CarId});
                 }
                 else
                 {
@@ -136,7 +136,7 @@ namespace webApplication.Controllers
                     car.HomeDeliveryAvailable = rentalInfoModel.HomeDeliveryAvailable;
 
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("AdditionalRentalDetailsPage", new { id = rentalInfoModel.CarId });
+                    return RedirectToAction("AdditionalRentalDetailsPage", new { id = car.CarId });
                 }
                 else
                 {
@@ -170,7 +170,7 @@ namespace webApplication.Controllers
                     user.Notes = additionalDetailsModel.Notes;
 
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("CarFeaturesPage", new { id = additionalDetailsModel.CarId });
+                    return RedirectToAction("CarFeaturesPage", new { id = user.CarId });
                 }
                 else
                 {
@@ -207,7 +207,7 @@ namespace webApplication.Controllers
                     user.HasHeatedSeats = featuresModel.HasHeatedSeats;
 
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("ExteriorSpecificationsPage", new { id = featuresModel.CarId });
+                    return RedirectToAction("ExteriorSpecificationsPage", new { id = user.CarId });
                 }
                 else
                 {
@@ -244,7 +244,7 @@ namespace webApplication.Controllers
                     user.NumberOfDoors = exteriorModel.NumberOfDoors;
 
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("InsuranceInformationPage", new { id = exteriorModel.CarId });
+                    return RedirectToAction("InsuranceInformationPage", new { id = user.CarId });
                 }
                 else
                 {

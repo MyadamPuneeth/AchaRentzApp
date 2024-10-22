@@ -1,24 +1,92 @@
 ﻿@model webApplication.Models.CarDetails
 
-<div class="car-basic-info-section">
-    <h2>Basic Car Information</h2>
-    <form asp-controller="CarRegister" asp-action="CarBasicDetailsPage" method="post">
-        <div class="car-info-item">
-            <input asp-for="RcNumber" type="text" id="make" placeholder="RC Number">
-        </div>
-        <div class="car-info-item">
-            <input asp-for="InsuranceNumber" type="text" id="model" placeholder="Insurance Number">
-        </div>
-        <div class="car-info-item">
-            <input asp-for="LicensePlate" type="text" id="model"  placeholder="LicensePlate">
-        </div>
-        <div class="car-info-item">
-            <input asp-for="Mileage" type="text" id="model"  placeholder="Mileage">
-        </div>
-        <div class="car-info-item">
-            <input asp-for="Year" type="number" id="year" placeholder="Year">
-        </div>
-        <button type="submit">Next</button>
-    </form>
-    
+<div class="status-bar-car-basci-details-page">
+    @await Html.PartialAsync("_StatusBar")
 </div>
+
+<div class="car-basic-info-section-aligner">
+    <div class="car-basic-info-section">
+        <h2>Basic Car Information</h2>
+        <form asp-controller="CarRegister" asp-action="CarBasicDetailsPage" method="post">
+            <div class="car-info-item">
+                <label asp-for="RcNumber" class="control-label"></label>
+                <input asp-for="RcNumber" class="form-control" />
+            </div>
+            <div class="car-info-item">
+                <label asp-for="InsuranceNumber" class="control-label"></label>
+                <input asp-for="InsuranceNumber" class="form-control" />
+            </div>
+            <div class="car-info-item">
+                <label asp-for="LicensePlate" class="control-label"></label>
+                <input asp-for="LicensePlate" class="form-control" />
+            </div>
+            <div class="car-info-item">
+                <label asp-for="Mileage" class="control-label"></label>
+                <input asp-for="Mileage" class="form-control" />
+            </div>
+            <div class="car-info-item">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+            </div>
+            <button type="submit">Next</button>
+        </form>
+
+    </div>
+</div>
+
+
+<style>
+    .status-bar-car-basci-details-page{
+        display:flex;
+        justify-content:center;
+    }
+
+    .car-basic-info-section {
+        color: white;
+        background: #4D4D4D;
+        width: 50vw;
+        display: flex;
+        flex-direction: column;
+        height: 70vh;
+        border-radius: 5px;
+    }
+
+        .car-basic-info-section form {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 55vh;
+            align-items: center;
+            margin-top:2vh;
+        }
+
+    .car-basic-info-section-aligner {
+        margin-top: 3vh;
+        color: white;
+        display: flex;
+        justify-content: center;
+    }
+
+    .car-info-item {
+        display: flex;
+        width: 35vw;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .car-info-item input {
+        height: 5vh;
+        width: 20vw;
+        padding-left: 1vw;
+    }
+
+    .car-basic-info-section button {
+        width: 10vw;
+        height: 7vh;
+        background: #29D23D;
+        border: 0;
+        color: white;
+        font-weight: bold;
+        border-radius: 3px;
+    }
+</style>
