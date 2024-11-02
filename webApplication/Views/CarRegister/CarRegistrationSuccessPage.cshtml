@@ -1,0 +1,101 @@
+﻿<body>
+    <div class="container">
+        <div class="content">
+            <h2>Rentals Made Super Easy</h2>
+            <p>Please visit your nearest ACHA rentz Center for a final inspection before handing your car.</p>
+            <a href="#" class="option-link">Locate Centers Nearby</a>
+            <p>OR</p>
+            <p>Select the Home Inspection option for a home visit by technician.</p>
+            <div class="checkbox-section">
+                <input type="checkbox" id="homeInspection">
+                <label for="homeInspection">Home Inspection</label>
+            </div>
+            <a href=@Url.Action("HomePage", "Home") class="submit-link">Click Here To Submit</a>
+        </div>  
+    </div>
+</body>
+
+<style>
+
+    .container {
+        display:flex;
+        text-align: center;
+        justify-content:center;
+        margin-top:20px;
+        margin-bottom:30px;
+        margin-left:7%;
+        width: 80%;
+        height:60vh;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #333;
+        color: white;
+    }
+
+        .header a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .header img {
+            width: 32px;
+            border-radius: 50%;
+        }
+
+    .logo {
+        font-size: 28px;
+        color: #37b44a;
+    }
+
+    .content {
+        display:flex;
+        flex-direction:column;
+        justify-content:space-around;
+        margin: 20px;
+        padding: 20px;
+        background-color: #333;
+        color: white;
+        border-radius: 10px;
+    }
+
+        .content h2 {
+            margin-top: 0;
+        }
+
+    .option-link {
+        color: #37b44a;
+        text-decoration: none;
+    }
+
+        .option-link:hover {
+            text-decoration: underline;
+        }
+
+    .submit-link {
+        color: #37b44a;
+        text-decoration: none;
+    }
+
+        .submit-link:hover {
+            text-decoration: underline;
+        }
+
+    .checkbox-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+        .checkbox-section input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+</style>

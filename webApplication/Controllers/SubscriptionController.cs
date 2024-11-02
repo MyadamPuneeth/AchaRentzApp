@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using webApplication.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using DAL.Models;
+using DAL.Data;
 
 public class SubscriptionController : Controller
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext Context;
     public SubscriptionController(AppDbContext context)
     {
-        _context = context;
+        Context = context;
     }
 
     public IActionResult Subscribe()
@@ -22,7 +20,7 @@ public class SubscriptionController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = _context.Users.FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("UserId"));
+            var user = Context.Users.FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("UserId"));
 
             if (user != null)
             {
@@ -30,7 +28,7 @@ public class SubscriptionController : Controller
                 HttpContext.Session.SetString("UserType", user.UserType);
             }
 
-            _context.SaveChanges();
+            Context.SaveChanges();
             return RedirectToAction("HomePage", "Home");
         }   
         return View();

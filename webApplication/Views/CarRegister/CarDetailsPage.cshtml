@@ -1,0 +1,44 @@
+﻿@model DAL.Models.CarDetails
+
+@{
+    ViewData["Title"] = "CarTechnicalDetailsPage";
+}
+
+<h1>CarTechnicalDetailsPage</h1>
+
+<h4>CarDetails</h4>
+<hr />
+<div class="car-tech-specs-section">
+    <h2>Technical Specifications</h2>
+    <div class="tech-spec-item">
+        <label for="engine-type">Engine Type:</label>
+        <input type="text" id="engine-type" name="engine-type" placeholder="e.g., V6">
+    </div>
+    <div class="tech-spec-item">
+        <label for="fuel-type">Fuel Type:</label>
+        <input type="text" id="fuel-type" name="fuel-type" placeholder="e.g., Gasoline">
+    </div>
+    <div class="tech-spec-item">
+        <label for="mileage">Mileage:</label>
+        <input type="number" id="mileage" name="mileage" placeholder="e.g., 12000.50">
+    </div>
+    <div class="tech-spec-item">
+        <label for="transmission">Transmission:</label>
+        <input type="text" id="transmission" name="transmission" placeholder="e.g., Manual">
+    </div>
+    <div class="tech-spec-item">
+        <label for="horse-power">Horsepower (HP):</label>
+        <input type="number" id="horse-power" name="horse-power" placeholder="e.g., 300 hp">
+    </div>
+    <div class="tech-spec-item">
+        <label for="fuel-capacity">Fuel Capacity (liters):</label>
+        <input type="number" id="fuel-capacity" name="fuel-capacity" placeholder="e.g., 55.5">
+    </div>
+    <button type="submit">Submit Technical Specifications</button>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+view model for this page..

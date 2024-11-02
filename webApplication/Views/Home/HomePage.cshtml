@@ -1,5 +1,5 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
-@model webApplication.Models.RentalDetails
+@model DAL.Models.RentalDetails
 @{
     ViewData["Title"] = "Home";
 }
@@ -18,11 +18,14 @@
 
 <div class="home-banner">
     <div class="banner-content">
-        <div class="banner-content-with-car-img">
-            <div class="banner-content-text">
+        <div class="banner-content-with-car-img" style="width:70vw;">
+            <div class="banner-content-text" >
                 <h1>Rent or </h1>
                 <h1>Register a Car for Rent</h1>
                 <h3>In Just 5 Steps</h3>
+            </div>
+            <div>
+                <img src="~/Images/sport-car.png" alt="Alternate Text" />
             </div>
         </div>
         <div class="home-banner-buttons">
@@ -38,22 +41,22 @@
 
 <section class="book-drive-section">
     <div class="sub-book-drive-section">
-        <h2>Self Drive Car Rentals in Hyderabad</h2>
+        <h2>Self Drive Car Rentals in @ViewBag.City</h2>
         <p>Book Your Drive Now</p>
     </div>
     <form asp-controller="Home" asp-action="HomePage">
         <div class="location-home-page">
             <a><img src="~/images/location-icon.png" alt="Alternate Text" /></a>
-            <input asp-for="Location" type="text" placeholder="Location: Hyderabad, State, City" required>
+            <input asp-for="Location" type="text" placeholder="Location: @ViewBag.City" required>
         </div>
         <div class="super-form-to-div">
             <div class="from-to-div-1">
                 <h4 style="margin:10px">From</h4>
-                <input asp-for="FromDateTime" type="datetime-local" placeholder="Select Date and Time" required>
+                <input asp-for="FromDateTime" type="datetime-local" id="fromDateTime" placeholder="Select Date and Time" required>
             </div>
             <div class="from-to-div-2">
                 <h4 style="margin:10px">To</h4>
-                <input asp-for="ToDateTime" type="datetime-local" placeholder="Select Date and Time" required>
+                <input asp-for="ToDateTime" type="datetime-local" id="toDateTime" placeholder="Select Date and Time" required>
             </div>
         </div>
         <button type="submit">Get A Car</button>
@@ -96,3 +99,23 @@
     </div>
 </section>
 
+<script>
+    // Set minimum date-time for "From" and "To" inputs to prevent past selections
+    function setMinDateTime() {
+        const now = new Date();
+        const formattedDateTime = now.toISOString().slice(0, 16); // Format as "YYYY-MM-DDTHH:MM"
+
+        // Set min attribute for both inputs
+        document.getElementById("fromDateTime").setAttribute("min", formattedDateTime);
+        document.getElementById("toDateTime").setAttribute("min", formattedDateTime);
+    }
+
+    // Initialize on page load
+    window.onload = setMinDateTime;
+
+    // Update "To" field's min whenever "From" field changes
+    document.getElementById("fromDateTime").addEventListener("change", function () {
+        const fromDateTime = this.value;
+        document.getElementById("toDateTime").setAttribute("min", fromDateTime);
+    });
+</script>

@@ -1,4 +1,4 @@
-﻿@model webApplication.Models.User
+﻿@model PresentationLayer.ViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "RegisterationPage";
 }
@@ -50,7 +50,7 @@
 
         $("form").validate({
             onkeyup: function (element) {
-                $(element).valid();
+                $(element).valid(); 
             }
         });
     });

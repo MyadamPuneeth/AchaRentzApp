@@ -1,17 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using BLL.Services;
+using DAL.Models;
+using PresentationLayer.ViewModels;
+using DAL.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using webApplication.Models;
 
-namespace webApplication.Controllers
+namespace PresentationLayer.Controllers
 {
     public class CarRegisterController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly CarService CarService;
+        private readonly AppDbContext Context;
 
-        public CarRegisterController(AppDbContext context)
+        public CarRegisterController(CarService carService, AppDbContext context)
         {
-            _context = context;
+            CarService = carService;
+            Context = context;
         }
 
         [HttpGet]
@@ -23,13 +27,11 @@ namespace webApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterACarPage(CarDetails carModel)
         {
-            
             if (ModelState.IsValid)
-            { 
-                _context.CarDetails.Add(carModel);
+            {
+                await CarService.AddCarAsync(carModel);
                 HttpContext.Session.SetInt32("CarId", carModel.CarId);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("CarBasicDetailsPage", new { id = carModel.CarId});
+                return RedirectToAction("CarBasicDetailsPage", new { id = carModel.CarId });
             }
             return View(carModel);
         }
@@ -37,44 +39,39 @@ namespace webApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> CarBasicDetailsPage(int id)
         {
-            var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
+            var car = await CarService.GetCarDetailsByIdAsync(id);
+            if (car == null) return NotFound();
+            return View(car);
         }
 
+        
+
         [HttpPost]
-        public async Task<IActionResult> CarBasicDetailsPage(int id, CarDetails carBasicModel)
+        public async Task<IActionResult> CarBasicDetailsPage(int id, CarBasicDetailsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
-                if (user != null)
+                var car = await CarService.GetCarDetailsByIdAsync(id);
+                if (car != null)
                 {
-                    user.RcNumber = carBasicModel.RcNumber;
-                    user.InsuranceNumber = carBasicModel.InsuranceNumber;
-                    user.LicensePlate = carBasicModel.LicensePlate;
-                    user.Mileage = carBasicModel.Mileage;
-                    user.Year = carBasicModel.Year;
+                    car.RcNumber = model.RcNumber ?? 0;
+                    car.InsuranceNumber = model.InsuranceNumber ?? 0;
+                    car.LicensePlate = model.LicensePlate;
+                    car.Mileage = model.Mileage;
+                    car.Year = model.Year;
 
-                    _context.SaveChanges();
-                    return RedirectToAction("CarTechnicalDetailsPage", new {id = user.CarId});
+                    await CarService.UpdateCarDetailsAsync(car);
+                    return RedirectToAction("CarTechnicalDetailsPage", new { id = car.CarId });
                 }
-                else
-                {
-                    return NotFound(); // Return 404 if the user was not found
-                }
+                return NotFound();
             }
-            return View();
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> CarTechnicalDetailsPage(int id)
         {
-            var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -88,17 +85,17 @@ namespace webApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.FuelType = carTechnicalModel.FuelType;
                     user.Mileage = carTechnicalModel.Mileage;
                     user.Transmission = carTechnicalModel.Transmission;
                     user.FuelCapacity = carTechnicalModel.FuelCapacity;
-                    
-                    _context.SaveChanges();
 
-                    return RedirectToAction("RentalInformationPage", new {id = user.CarId});
+                    Context.SaveChanges();
+
+                    return RedirectToAction("RentalInformationPage", new { id = user.CarId });
                 }
                 else
                 {
@@ -111,7 +108,7 @@ namespace webApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> RentalInformationPage(int id)
         {
-            var car = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var car = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
             if (car == null)
             {
                 return NotFound();
@@ -124,7 +121,7 @@ namespace webApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var car = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var car = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
                 if (car != null)
                 {
                     car.RentalPricePerDay = rentalInfoModel.RentalPricePerDay;
@@ -135,7 +132,7 @@ namespace webApplication.Controllers
                     car.MinimumRentalPeriod = rentalInfoModel.MinimumRentalPeriod;
                     car.HomeDeliveryAvailable = rentalInfoModel.HomeDeliveryAvailable;
 
-                    await _context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
                     return RedirectToAction("AdditionalRentalDetailsPage", new { id = car.CarId });
                 }
                 else
@@ -149,7 +146,7 @@ namespace webApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> AdditionalRentalDetailsPage(int id)
         {
-            var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -162,14 +159,14 @@ namespace webApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.DistanceFromUser = additionalDetailsModel.DistanceFromUser;
                     user.UserRating = additionalDetailsModel.UserRating;
                     user.Notes = additionalDetailsModel.Notes;
 
-                    await _context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
                     return RedirectToAction("CarFeaturesPage", new { id = user.CarId });
                 }
                 else
@@ -183,7 +180,7 @@ namespace webApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> CarFeaturesPage(int id)
         {
-            var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -196,7 +193,7 @@ namespace webApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.HasAirConditioning = featuresModel.HasAirConditioning;
@@ -206,7 +203,7 @@ namespace webApplication.Controllers
                     user.HasChildSeat = featuresModel.HasChildSeat;
                     user.HasHeatedSeats = featuresModel.HasHeatedSeats;
 
-                    await _context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
                     return RedirectToAction("ExteriorSpecificationsPage", new { id = user.CarId });
                 }
                 else
@@ -220,7 +217,7 @@ namespace webApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> ExteriorSpecificationsPage(int id)
         {
-            var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -233,7 +230,7 @@ namespace webApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.Color = exteriorModel.Color;
@@ -243,8 +240,8 @@ namespace webApplication.Controllers
                     user.SeatingCapacity = exteriorModel.SeatingCapacity;
                     user.NumberOfDoors = exteriorModel.NumberOfDoors;
 
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("InsuranceInformationPage", new { id = user.CarId });
+                    await Context.SaveChangesAsync();
+                    return RedirectToAction("CarRegistrationSuccessPage");
                 }
                 else
                 {
@@ -254,55 +251,10 @@ namespace webApplication.Controllers
             return View(exteriorModel);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> InsuranceInformationPage(int id)
+        public IActionResult CarRegistrationSuccessPage()
         {
-            var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
+            return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> InsuranceInformationPage(int id, CarDetails insuranceModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
-                var userId = HttpContext.Session.GetInt32("UserId");
-
-
-                var owner = new Owner
-                {
-                    UserId = userId.Value,
-                    CarId = insuranceModel.CarId
-                };
-
-                _context.Owners.Add(owner);
-
-                if (user != null)
-                {
-                    user.InsuranceIncluded = insuranceModel.InsuranceIncluded;
-                    user.InsuranceExpiryDate = insuranceModel.InsuranceExpiryDate;
-                    user.InsuranceProvider = insuranceModel.InsuranceProvider;
-                    user.LastServicedDate = insuranceModel.LastServicedDate;
-                    user.RegistrationState= insuranceModel.RegistrationState;
-
-                    
-
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("HomePage", "Home");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            return View(insuranceModel);
-        }
-
 
     }
 

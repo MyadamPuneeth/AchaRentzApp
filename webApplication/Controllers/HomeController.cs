@@ -1,22 +1,41 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-//using webApplication.Filters;
-using webApplication.Models;
-using System;
-using Newtonsoft.Json;
+using DAL.Models;
+using DAL.Data;
 
-namespace webApplication.Controllers
+namespace PresentationLayer.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> Logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
-        public IActionResult HomePage()
+
+        public IActionResult LocationPage()
         {
+            HttpContext.Session.SetInt32("LandingPage", 1);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LocationPage(string SelectedCity)
+        {
+            
+            if (!string.IsNullOrEmpty(SelectedCity))
+            {
+                HttpContext.Session.SetInt32("LandingPage", 0);
+                return RedirectToAction("HomePage", new { city = SelectedCity });
+            }
+
+            ViewBag.Message = "Please select a city.";
+            return View();
+        }
+        public IActionResult HomePage(string city)
+        {
+            ViewBag.City = city;
             return View();
         }
 

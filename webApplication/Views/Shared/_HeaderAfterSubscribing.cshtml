@@ -1,4 +1,6 @@
-﻿@*
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
@@ -10,11 +12,12 @@
         <ul>
             <li><a asp-controller="CarListing" asp-action="CarsListingPagePremium">Rent a Car</a></li>
             <li><a asp-controller="CarRegister" asp-action="RegisterACarPage">Register a Car</a></li>
-            <li>Premium</li>
         </ul>
     </nav>
     <div class="auth-links">
-        <img src="" alt="ProfilePic"/>
+        <p>Premium</p>
+        <img src="~/Images/user-profile-icon.png" alt="ProfilePic" style="width:32px" />
+        <span class="tooltip-text">@HttpContextAccessor.HttpContext.Session.GetString("UserName")<br>@HttpContextAccessor.HttpContext.Session.GetString("UserEmail")</span>
         <a asp-controller="SignIn" asp-action="SignOut">Logout</a>
     </div>
 </header>

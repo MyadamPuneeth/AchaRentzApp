@@ -1,4 +1,4 @@
-﻿@model webApplication.Models.CarDetails
+﻿@model DAL.Models.CarDetails
 
 @{
     ViewData["Title"] = "CarTechnicalDetailsPage";
@@ -14,7 +14,7 @@
                 <h2>Car Technical Details</h2>
                 <form asp-action="CarTechnicalDetailsPage" method="post">
                     <div class="car-info-item">
-                        <label asp-for="FuelType" class="control-label"></label>
+                        <label asp-for="FuelType" class="control-label">Fuel Type</label>
                         <input asp-for="FuelType" class="form-control" />
                     </div>
                     <div class="car-info-item">
@@ -26,7 +26,7 @@
                         <input asp-for="Transmission" class="form-control" />
                     </div>
                     <div class="car-info-item">
-                        <label asp-for="FuelCapacity" class="control-label"></label>
+                        <label asp-for="FuelCapacity" class="control-label">Fuel Capacity</label>
                         <input asp-for="FuelCapacity" class="form-control" />
                     </div>
                     <div class="car-info-item">

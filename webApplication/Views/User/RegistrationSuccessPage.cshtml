@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "RegistrationSuccessPage";
+}
+
+<script>
+    setTimeout(function () {
+        window.location.href = '@Url.Action("LoginPage", "SignIn")'; 
+    }, 3000);
+</script>
+
+<div class="rs-div">
+    <h1>
+        Registration Successful!!!
+    </h1>
+    <br />
+    <p>
+        Please Login again to access the WebPage..
+    </p>
+</div>
+
+<style>
+    .rs-div{
+        display:flex;
+        flex-direction:column;
+        box-shadow:0 0 20px 1px grey ;
+        border-radius:30px;
+        align-items:center;
+        justify-content:center;
+        height:70vh;
+        width:70vw;
+        margin-left:15vw;
+        margin-top: 8vh;
+        font-style: Roboto;
+        color:grey;
+    }
+
+    .rs-div p{
+        color:black;
+    }
+
+</style>

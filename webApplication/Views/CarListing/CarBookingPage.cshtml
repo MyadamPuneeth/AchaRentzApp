@@ -1,53 +1,64 @@
-﻿@model webApplication.Models.CarDetails
+﻿@model DAL.Models.CarDetails
 @inject IHttpContextAccessor HttpContextAccessor
+
+
 <main>
     <div class="car-details-page">
         <!-- Car Gallery -->
-        <section class="car-gallery">
-            @* <img src="@" alt="Car" class="main-car-image"> *@
-            <div class="car-thumbnails">
-                @foreach (var thumbnail in Model.Thumbnails)
-                {
-                    <img src="@thumbnail" alt="Car Thumbnail">
-                }
+        <div>
+            <img src="~/Images/car-tile-img.png" alt="Car" class="main-car-image">
+            <div>
+                <div class="checkout-div">
+                    @await Html.PartialAsync("_Checkout", new RentalDetails
+               {
+                   FromDateTime = TempData["FromDateTime"] != null ? (DateTime)TempData["FromDateTime"] : DateTime.Now,
+                   ToDateTime = TempData["ToDateTime"] != null ? (DateTime)TempData["ToDateTime"] : DateTime.Now.AddHours(1),
+                   RentalDuration = HttpContextAccessor.HttpContext.Session.GetInt32("duration") ?? 0,
+                   Location = TempData["Location"] != null ? TempData["Location"].ToString() : string.Empty,
+               })
+                </div>
             </div>
-        </section>
+        </div>
+            
 
         <!-- Car Info -->
         <section class="car-info">
             <div class="car-header">
                 <h1>@Model.Model</h1>
+                <br />
                 <h3>@Model.Transmission · @Model.FuelType · @Model.SeatingCapacity Seats</h3>
             </div>
+            <hr />
 
-            <!-- Ratings & Reviews -->
+            <div class="review-section">
+                <h4>Ratings & Reviews</h4>
+                @*  <div class="reviews">
+                @foreach (var review in Model.Reviews)
+                {
+                <div class="review">
+                <strong>@review.UserName</strong>
+                <p>@review.Comment</p>
+                </div>
+                }
+                </div> *@
+            </div>
+
             <div class="ratings-reviews">
                 <span class="rating">
                     <span>@Model.UserRating</span>
                     <i class="fa fa-star"></i>
                     <span>(@Model.NumberOfTrips trips)</span>
-                </span>
-
-                <div class="review-section">
-                    <h4>Ratings & Reviews</h4>
-                    @*  <div class="reviews">
-                    @foreach (var review in Model.Reviews)
-                    {
-                    <div class="review">
-                    <strong>@review.UserName</strong>
-                    <p>@review.Comment</p>
-                    </div>
-                    }
-                    </div> *@
-                </div>
+                </span>                
             </div>
 
+            <hr />
             <!-- Car Location -->
             <div class="car-location">
-                <h4>Car Location</h4>
-                <p>@Model.DistanceFromUser · @Model.DistanceFromUser km away</p>
-                <div id="map"></div> <!-- Placeholder for map integration -->
+                <h4 style="color:white">Car Location</h4>
+                <p style="color:white">@Model.DistanceFromUser · @Model.DistanceFromUser km away</p>
+                <div id="map">  </div> 
             </div>
+            <hr />
 
             <!-- Car Features -->
             <div class="car-features">
@@ -80,14 +91,16 @@
 
                 </ul>
             </div>
+            <hr />
 
             <!-- Policies -->
             <div class="policies">
                 <h4>Policies and Agreement</h4>
                 <label>
-                    <input type="checkbox"> I hereby agree to the terms and conditions of the Lease Agreement with Owner.
+                    <input type="checkbox" required> I hereby agree to the terms and conditions of the Lease Agreement with Owner.
                 </label>
             </div>
+            <hr />
 
             <!-- FAQs -->
             <div class="faq">
@@ -104,15 +117,7 @@
         <!-- Checkout Section -->
         <aside class="checkout-section">
             <h3>Checkout</h3>
-            <div>
-                @await Html.PartialAsync("_Checkout", new RentalDetails
-           {
-               FromDateTime = TempData["FromDateTime"] != null ? (DateTime)TempData["FromDateTime"] : DateTime.Now,
-               ToDateTime = TempData["ToDateTime"] != null ? (DateTime)TempData["ToDateTime"] : DateTime.Now.AddHours(1),
-               RentalDuration = HttpContextAccessor.HttpContext.Session.GetInt32("duration") ?? 0,
-               Location = TempData["Location"] != null ? TempData["Location"].ToString() : string.Empty,
-           })
-            </div>
+            
             <div class="price">
                 <span>Offer: ₹@Model.RentalPricePerDay/hr</span>
                 <span>Total Estimated Price: ₹@(Model.RentalPricePerDay * (HttpContextAccessor.HttpContext.Session.GetInt32("duration")))</span>
@@ -121,3 +126,50 @@
         </aside>
     </div>
 </main>
+
+
+<style>
+    .car-info{
+        background: grey;
+        border-radius:5px;
+        color:white;
+        margin:10px;
+        margin-top:0px;
+    }
+    .checkout-section{
+        background: #F0F0F0;
+        width:40vw;
+    }
+    .car-gallery{
+        display:flex;
+        background:green;
+        width:25vw;
+    }
+    .main-car-image{
+        width:256px;
+        height:256px;
+    }
+    .car-thumbnails{
+        background:red;
+    }
+    .car-location{
+        display:flex;
+        flex-direction:column;
+    }
+.ratings-reviews{
+    display:flex;
+    justify-content:center;
+}
+
+    .checkout-div {
+        padding-top:2vh;
+        background: #4D4D4D;
+        color:white;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items:center;
+        border-radius:3px;
+    }
+
+    </style>

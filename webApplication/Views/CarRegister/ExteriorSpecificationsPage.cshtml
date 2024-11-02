@@ -1,4 +1,4 @@
-﻿@model webApplication.Models.CarDetails
+﻿@model DAL.Models.CarDetails
 
 @{
     ViewData["Title"] = "ExteriorSpecificationsPage";
@@ -14,27 +14,27 @@
                 <h2>Exterior Specifications Page</h2>
                 <form asp-action="ExteriorSpecificationsPage" method="post">
                     <div class="car-info-item">
-                        <label asp-for="Color" class="control-label"></label>
+                        <label asp-for="Color" class="control-label">Color</label>
                         <input asp-for="Color" class="form-control" />
                     </div>
                     <div class="car-info-item">
-                        <label asp-for="Length" class="control-label"></label>
+                        <label asp-for="Length" class="control-label">Length</label>
                         <input asp-for="Length" class="form-control" />
                     </div>
                     <div class="car-info-item">
-                        <label asp-for="Height" class="control-label"></label>
+                        <label asp-for="Height" class="control-label">Height</label>
                         <input asp-for="Height" class="form-control" />
                     </div>
                     <div class="car-info-item">
-                        <label asp-for="Width" class="control-label"></label>
+                        <label asp-for="Width" class="control-label">Width</label>
                         <input asp-for="Width" class="form-control" />
                     </div>
                     <div class="car-info-item">
-                        <label asp-for="SeatingCapacity" class="control-label"></label>
+                        <label asp-for="SeatingCapacity" class="control-label">Seating Capacity</label>
                         <input asp-for="SeatingCapacity" class="form-control" />
                     </div>
                     <div class="car-info-item">
-                        <label asp-for="NumberOfDoors" class="control-label"></label>
+                        <label asp-for="NumberOfDoors" class="control-label">Number Of Doors</label>
                         <input asp-for="NumberOfDoors" class="form-control" />
                     </div>
                     <button type="submit">Next</button>

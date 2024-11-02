@@ -1,13 +1,13 @@
-﻿@model webApplication.Models.RentalDetails;
+﻿@model DAL.Models.RentalDetails;
 
 <div class="super-form-to-div-layout">
     <div class="from-to-div-layout">
         <h4>From</h4>
-        <input asp-for="FromDateTime" type="datetime-local" placeholder="Select Date and Time" required>
+        <input asp-for="FromDateTime" type="datetime-local" id="fromDateTime" placeholder="Select Date and Time" required>
     </div>
     <div class="from-to-div-layout">
         <h4>To</h4>
-        <input asp-for="ToDateTime" type="datetime-local" placeholder="Select Date and Time" required>
+        <input asp-for="ToDateTime" type="datetime-local" id="toDateTime" placeholder="Select Date and Time" required>
     </div>
 </div>
 
@@ -15,10 +15,9 @@
     .super-form-to-div-layout{
         display:flex;
         flex-direction:column;
-        background: #0EAB20;
+        background: #D9D9D9;
         padding-bottom:3vw;
         border-radius:5px;
-        color:white;
     }
     input{
         width:18vw;
@@ -31,3 +30,4 @@
         border:0;
     }
 </style>
+

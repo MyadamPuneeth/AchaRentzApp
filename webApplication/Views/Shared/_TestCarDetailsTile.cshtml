@@ -1,0 +1,147 @@
+﻿@* <div class="car-card">
+    
+        <div class="back-img-car-tile">
+            <div class="car-image">
+                <div class="car-rating">
+                    <span class="rating-badge">
+                        3.5<i class="fa fa-star"></i><p>|</p>
+                        <span class="trips-count">36 Trips</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="car-info">
+            <div class="main-car-info">
+                <h3 class="car-name">Model</h3>
+                <h6>Transmission .  FuelType . SeatingCapacity Seats</h6>
+
+                <div class="car-pricing">
+                    <div>
+                        <span class="discounted-price">₹RentalPricePerDay/hr</span>
+                        <span class="original-price">₹(RentalPricePerDay + (RentalPricePerDay * 0.12M))/hr</span>
+                    </div>
+                    <div class="total-price">
+                        ₹(RentalPricePerDay * (HttpContextAccessor.HttpContext.Session.GetInt32("duration")))
+                        <span class="fees-exclusion">(excluding fees)</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>--------------------------------------------------</p>
+
+            <div class="car-location">
+                <i class="fa fa-walking"></i> DistanceFromUser km away
+            </div>
+                <div class="home-delivery-btn">Home Delivery</div
+        </div>
+</div> *@
+
+
+<div class="car-tile">
+    <div class="car-img-div">
+        <div class="car-rating-class">
+            <span class="rating-badge">
+                3.5<i class="fa fa-star"></i><p>|</p>
+            <span class="trips-count">36 Trips</span>
+        </div>
+    </div>
+    <div class="text-div">
+        <div class="car-and-price-div">
+            <div class="car-name-div">
+                <span class="car-name">
+                    Maruti Suzuki Swift
+                </span>
+                <span class="basic-details">
+                    Manual  .  Petrol  .  5 Seats
+                </span>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .car-tile{
+        background:grey;
+        border-radius:15px;
+        width:20vw;
+        height:60vh;
+        margin-left:38vw;
+        margin-top:5vh;
+        border-shadow:30px black;
+    }
+
+    .car-img-div{
+        width:20vw;
+        height:30vh;
+        border-radius:15px 15px 0px 0px;
+        background-image:url('../Images/car-tile-img.png');
+        background-size:100% 100%;
+        display:flex;
+        align-items:last baseline;
+    }
+
+    .car-rating-class{
+        height:4.6vh;
+        width:10.1vw;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .rating-badge {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 8px;
+        border-radius: 20px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        width: 9vw;
+        height: 3vh;
+        justify-content: space-around;
+    }
+
+        .rating-badge i {
+            margin-left: 5px;
+        }
+
+    .text-div{
+        background:red;
+        width:20vw;
+        height:30vh;
+    }
+
+    .car-name-div{
+        background:yellow;
+        padding-left:1vw;
+        width:12vw;
+        height:5vh;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+    }
+
+    .car-and-price-div{
+        background: green;
+        height:12vh;
+    }
+
+    .basic-details{
+        text-align: left;
+        font-size: 10px;
+        padding-left:0.8vw;
+    }
+
+    .car-name{
+        text-align:left;
+        font-size:14px;
+    }
+
+</style>

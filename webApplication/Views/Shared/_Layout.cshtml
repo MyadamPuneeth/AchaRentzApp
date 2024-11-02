@@ -12,7 +12,9 @@
 <body>
     <script src="~/js/site.js"></script>
 
-    @if (HttpContextAccessor.HttpContext.Session.GetString("UserName") != null)
+
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("UserName") != null || Context.User.Identity.IsAuthenticated)
     {
         // User is authenticated
         if(HttpContextAccessor.HttpContext.Session.GetString("UserType") == "PremiumUser")
@@ -28,8 +30,17 @@
     }
     else
     {
-        // User is not authenticated
-        @await Html.PartialAsync("_HeaderBeforeLogin")
+        @if (HttpContextAccessor.HttpContext.Session.GetInt32("LandingPage") == 1)
+        {
+            <div style="display:none">
+                @await Html.PartialAsync("_HeaderBeforeLogin")
+            </div>
+        }
+        else
+        {
+            @await Html.PartialAsync("_HeaderBeforeLogin")
+        }
+        
     }
 
     <!-- Main Content -->

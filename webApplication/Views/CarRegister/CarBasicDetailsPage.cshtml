@@ -1,4 +1,4 @@
-﻿@model webApplication.Models.CarDetails
+﻿@model DAL.Models.CarDetails
 
 <div class="status-bar-car-basci-details-page">
     @await Html.PartialAsync("_StatusBar")
@@ -9,15 +9,15 @@
         <h2>Basic Car Information</h2>
         <form asp-controller="CarRegister" asp-action="CarBasicDetailsPage" method="post">
             <div class="car-info-item">
-                <label asp-for="RcNumber" class="control-label"></label>
+                <label asp-for="RcNumber" class="control-label">Rc Number</label>
                 <input asp-for="RcNumber" class="form-control" />
             </div>
             <div class="car-info-item">
-                <label asp-for="InsuranceNumber" class="control-label"></label>
+                <label asp-for="InsuranceNumber" class="control-label">Insurance Number</label>
                 <input asp-for="InsuranceNumber" class="form-control" />
             </div>
             <div class="car-info-item">
-                <label asp-for="LicensePlate" class="control-label"></label>
+                <label asp-for="LicensePlate" class="control-label">License Plate</label>
                 <input asp-for="LicensePlate" class="form-control" />
             </div>
             <div class="car-info-item">

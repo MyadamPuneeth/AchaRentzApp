@@ -1,0 +1,114 @@
+﻿@model DAL.Models.CarDetails
+
+<main>
+    <div class="car-details-page">
+        <!-- Car Gallery -->
+        <section class="car-gallery">
+            <img src="@Model.MainImageUrl" alt="Car" class="main-car-image">
+            <div class="car-thumbnails">
+                @foreach (var thumbnail in Model.Thumbnails)
+                {
+                    <img src="@thumbnail" alt="Car Thumbnail">
+                }
+            </div>
+        </section>
+
+        <!-- Car Info -->
+        <section class="car-info">
+            <div class="car-header">
+                <h1>@Model.Model</h1>
+                <h3>@Model.Transmission · @Model.FuelType · @Model.SeatingCapacity Seats</h3>
+            </div>
+
+            <!-- Ratings & Reviews -->
+            <div class="ratings-reviews">
+                <span class="rating">
+                    <span>@Model.UserRating</span>
+                    <i class="fa fa-star"></i>
+                    <span>(@Model.NumberOfTrips trips)</span>
+                </span>
+
+                <div class="review-section">
+                    <h4>Ratings & Reviews</h4>
+                    @*  <div class="reviews">
+                    @foreach (var review in Model.Reviews)
+                    {
+                    <div class="review">
+                    <strong>@review.UserName</strong>
+                    <p>@review.Comment</p>
+                    </div>
+                    }
+                    </div> *@
+                </div>
+            </div>
+
+            <!-- Car Location -->
+            <div class="car-location">
+                <h4>Car Location</h4>
+                <p>@Model.DistanceFromUser · @Model.DistanceFromUser km away</p>
+                <div id="map"></div> <!-- Placeholder for map integration -->
+            </div>
+
+            <!-- Car Features -->
+            <div class="car-features">
+                <h4>Features</h4>
+                <ul>
+                    @if (Model.HasAirConditioning == true)
+                    {
+                        <h6>HasAirConditioning</h6>
+                    }
+                    @if (Model.HasBackupCamera == true)
+                    {
+                        <h6>HasBackupCamera</h6>
+                    }
+                    @if (Model.HasBluetooth == true)
+                    {
+                        <h6>HasBluetooth</h6>
+                    }
+                    @if (Model.HasChildSeat == true)
+                    {
+                        <h6>HasChildSeat</h6>
+                    }
+                    @if (Model.HasGPS == true)
+                    {
+                        <h6>HasGPS</h6>
+                    }
+                    @if (Model.HasHeatedSeats == true)
+                    {
+                        <h6>HasHeatedSeats</h6>
+                    }
+
+                </ul>
+            </div>
+
+            <!-- Policies -->
+            <div class="policies">
+                <h4>Policies and Agreement</h4>
+                <label>
+                    <input type="checkbox"> I hereby agree to the terms and conditions of the Lease Agreement with Owner.
+                </label>
+            </div>
+
+            <!-- FAQs -->
+            <div class="faq">
+                <h4>FAQs</h4>
+                <ul>
+                    @* @foreach (var faq in Model.FAQs)
+                    {
+                    <li>@faq.Question</li>
+                    } *@
+                </ul>
+            </div>
+        </section>
+
+        <!-- Checkout Section -->
+        <aside class="checkout-section">
+            <h3>Checkout</h3>
+            <div class="price">
+                <span>Offer: ₹@Model.RentalPricePerDay/hr</span>
+                <span>Total Price: ₹@Model.RentalPricePerDay</span>
+            </div>
+            <button>Confirm Booking</button>
+        </aside>
+    </div>
+</main>

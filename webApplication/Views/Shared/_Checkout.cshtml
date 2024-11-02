@@ -1,23 +1,58 @@
-﻿@model webApplication.Models.RentalDetails
+﻿@model DAL.Models.RentalDetails
 
 <h2>Car Booking Details</h2>
-<form asp-controller="CarListing" asp-action="ConfirmBooking" method="post">
-    <div>
+<form asp-controller="CarListing" asp-action="CarBookingPage" method="post">
+    <div class="check-input">
         <label>From Date:</label>
         <input type="text" asp-for="FromDateTime" readonly />
     </div>
-    <div>
+    <div class="check-input">
         <label>To Date:</label>
         <input type="text" asp-for="ToDateTime" readonly />
     </div>
-    <div>
+    <div class="check-input">
         <label>Rental Duration (Hours):</label>
         <input type="text" asp-for="RentalDuration" readonly />
     </div>
-    <div>
+    <div class="check-input">
         <label>Location:</label>
         <input type="text" asp-for="Location" readonly />
     </div>
-    <!-- Add more fields as necessary -->
-    <button type="submit">Confirm Booking</button>
+    <br />
+    <button class="car-booking-submit" id="submit-button" type="submit">Confirm Duration</button>
+    <br />
+    <p id="confirmation-method" style="display:none"></p>
 </form>
+
+<style>
+    form{
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    form button{
+            color:white;
+            background: #0EAB20;
+            border:0px;
+    }
+
+    .check-input{
+        margin:2px;
+        width:28vw;
+        display:flex;
+        justify-content:space-between;
+    }
+
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('#carBookingForm').on('submit', function (e) {
+            $('#submitButton').hide();
+            $('#confirmationMessage').show();
+        });
+    });
+</script>
+    

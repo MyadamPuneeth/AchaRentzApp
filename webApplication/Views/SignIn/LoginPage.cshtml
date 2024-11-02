@@ -1,4 +1,4 @@
-﻿@model webApplication.Models.SignInViewModel
+﻿@model PresentationLayer.ViewModels.SignInViewModel
 
 @{
     ViewData["Title"] = "Login";
@@ -10,7 +10,7 @@
         <p>________________________________________________________________________</p>
         <p>or Login With</p>
         <div class="social-login">
-            <a href="#"><img src="~/images/google-logo.png" alt="Google"></a>
+            <a asp-controller="SignIn" asp-action="GoogleLogin"><img src="~/images/google-logo.png" alt="Google"></a>
             <a href="#"><img src="~/images/apple-logo.png" alt="Apple"></a>
             <a href="#"><img src="~/images/microsoft-logo.png" alt="Microsoft"></a>
         </div>

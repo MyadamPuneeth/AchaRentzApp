@@ -53,7 +53,7 @@ nav ul {
     display: flex;
     gap: 20px;
     position: absolute;
-    top: 1vh;
+    top: 1vh;  
     left: 17vw;
 }
 
@@ -63,13 +63,19 @@ nav ul {
         font-size: 12px;
     }
 
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
 .auth-links a {
     text-decoration: none;
     color: white;
     padding-right: 30px;
     font-weight: bold;
 }
-
 
 /* Registration Page Styles */
 main {
@@ -129,6 +135,7 @@ main {
 /*  Footer Styles */
 footer {
     color: #fff;
+    height:68.9vh;
 }
 
 .super-sub-footer{
@@ -140,7 +147,7 @@ footer {
 .sub-footer{
     z-index:0;
     background:#4d4d4d;
-    height:63.6vh;
+    height:59.5vh;
     width:98.8vw;
 }
 
@@ -568,7 +575,7 @@ footer {
     color: black;
     height: 60vh;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 90vw;
     border-radius: 5px;
     position: relative;
@@ -658,6 +665,11 @@ footer {
   align-items:center;
   border-radius:3px;
 }
+
+    .location-home-page input {
+        outline: none;
+        border: none;
+    }
 
     .location-home-page a img {
         height: 16px;
@@ -909,22 +921,7 @@ nav a {
     margin-bottom: 10px;
 }
 
-.rating-badge {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 20px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    width:9vw;
-    height:3vh;
-    justify-content:space-around;
-}
 
-    .rating-badge i {
-        margin-left: 5px;
-    }
 
 .trips-count {
     color: white;

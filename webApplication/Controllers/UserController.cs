@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using webApplication.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Net;
-namespace webApplication.Controllers
+﻿using BLL.Interfaces;
+using DAL.Models;
+using Microsoft.AspNetCore.Mvc;
+using PresentationLayer.ViewModels;
+
+namespace PresentationLayer.Controllers
 {
     public class UserController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IUserService UserService;
 
-        public UserController(AppDbContext context)
+        public UserController(IUserService userService)
         {
-            _context = context;
+            UserService = userService;
         }
 
-        // GET: Display the form
         [HttpGet]
         public IActionResult RegistrationPage()
         {
@@ -26,65 +26,67 @@ namespace webApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Users.Add(user); // Add user to the DbSet
-                await _context.SaveChangesAsync(); // Save changes to the database
+                await UserService.AddUserAsync(user); // Use the service to add user
                 HttpContext.Session.SetInt32("UserId", user.UserId);
-                return RedirectToAction("ExtraDetails", new {id = user.UserId}); // Redirect after successful save
+                return RedirectToAction("ExtraDetails", new { id = user.UserId });
             }
-            return View(user); // Return the same view if model state is invalid
+            return View(user);
         }
 
-        // Optionally create an Index view to list users (not required but useful)
-        /*public async Task<IActionResult> Index()
-        {
-            var users = await _context.Users.ToListAsync();
-            return View(users);
-        }*/
-
-        // GET: Edit User (hardcoded id=1)
         [HttpGet]
         public async Task<IActionResult> ExtraDetails(int id)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId ==id);
+            var user = await UserService.GetUserByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            return View(user); // Pass the user data to the Edit view
+            var viewModel = new ExtraDetailsViewModel
+            {
+                Address = user.Address,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber ?? 0,
+                AlternatePhoneNumber = user.AlternatePhoneNumber ?? 0
+            };
+
+            return View(viewModel);
         }
 
-        // POST: 
         [HttpPost]
-        public async Task<IActionResult> ExtraDetails(int id, User model)
+        public async Task<IActionResult> ExtraDetails(int id, ExtraDetailsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == id);  // Fetch the user by id
-
-                if (user != null) // Check if the user exists in the database
-                {
-                    // Update user details
-                    user.Address = model.Address;
-                    user.Email = model.Email;
-                    user.FirstName = model.FirstName;
-                    user.LastName = model.LastName;
-                    user.PhoneNumber = model.PhoneNumber;
-                    user.AlternatePhoneNumber = model.AlternatePhoneNumber;
-
-                    _context.SaveChanges(); // Save changes to the database
-
-                    return RedirectToAction("LoginPage", "SignIn"); // Redirect on successful update
+                // Retrieve the user from the service
+                var user = await UserService.GetUserByIdAsync(id);
+                if (user == null)
+                { 
+                    return NotFound();
                 }
-                else
-                {
-                    return NotFound(); // Return 404 if the user was not found
-                }
+
+                // Map ExtraDetailsViewModel data back to User
+                user.Address = model.Address;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.PhoneNumber = model.PhoneNumber;
+                user.AlternatePhoneNumber = model.AlternatePhoneNumber;
+                user.UserType = "User";
+
+                await UserService.UpdateUserAsync(id, user);
+                return RedirectToAction("RegistrationSuccessPage"); 
             }
 
-            return View(model); // Return the view with the model if validation fails
+            return View();
         }
+
+        public IActionResult RegistrationSuccessPage()
+        {
+            return View();
+        }
+
     }
 }
-
-

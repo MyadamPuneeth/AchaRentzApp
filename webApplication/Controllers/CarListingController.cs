@@ -1,24 +1,22 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using webApplication.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using DAL.Models;
+using DAL.Data;
 
-namespace webApplication.Controllers
+namespace PresentationLayer.Controllers
 {
     public class CarListingController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext Context;
 
         // Constructor to inject the ApplicationDbContext
         public CarListingController(AppDbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public IActionResult CarsListingPagePremium()
         {
-            IEnumerable<CarDetails> carDetails = _context.CarDetails.ToList();
+            IEnumerable<CarDetails> carDetails = Context.CarDetails.ToList();
             return View(carDetails);
         }
                 
@@ -27,14 +25,9 @@ namespace webApplication.Controllers
             return View();
         }*/
 
-        public IActionResult ConfirmBookingPage()
-        {
-            return View();
-        }
-
         public IActionResult CarBookingPage(int id)
         {
-            var car = _context.CarDetails.FirstOrDefault(c => c.CarId == id);
+            var car = Context.CarDetails.FirstOrDefault(c => c.CarId == id);
             if (car == null)
             {
                 return NotFound();
@@ -55,7 +48,7 @@ namespace webApplication.Controllers
                 UserId = HttpContext.Session.GetInt32("UserId") ?? 0,
                 CarId = HttpContext.Session.GetInt32("CarId") ?? 0
             };
-            _context.RentalDetails.Add(carModel);
+            Context.RentalDetails.Add(carModel);
             return View(carModel);
         }
     }
