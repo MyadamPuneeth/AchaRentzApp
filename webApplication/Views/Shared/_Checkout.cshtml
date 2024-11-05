@@ -1,4 +1,4 @@
-﻿@model DAL.Models.RentalDetails
+﻿@model DAL.Models.RentalDetail
 
 <h2>Car Booking Details</h2>
 <form asp-controller="CarListing" asp-action="CarBookingPage" method="post">
@@ -11,7 +11,7 @@
         <input type="text" asp-for="ToDateTime" readonly />
     </div>
     <div class="check-input">
-        <label>Rental Duration (Hours):</label>
+        <label>Rental Duration ():</label>
         <input type="text" asp-for="RentalDuration" readonly />
     </div>
     <div class="check-input">

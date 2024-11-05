@@ -1,4 +1,4 @@
-﻿@model DAL.Models.CarDetails
+﻿@model DAL.Models.CarDetail
 @inject IHttpContextAccessor HttpContextAccessor
 
 
@@ -9,7 +9,7 @@
             <img src="~/Images/car-tile-img.png" alt="Car" class="main-car-image">
             <div>
                 <div class="checkout-div">
-                    @await Html.PartialAsync("_Checkout", new RentalDetails
+                    @await Html.PartialAsync("_Checkout", new RentalDetail
                {
                    FromDateTime = TempData["FromDateTime"] != null ? (DateTime)TempData["FromDateTime"] : DateTime.Now,
                    ToDateTime = TempData["ToDateTime"] != null ? (DateTime)TempData["ToDateTime"] : DateTime.Now.AddHours(1),

@@ -25,7 +25,7 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterACarPage(CarDetails carModel)
+        public async Task<IActionResult> RegisterACarPage(CarDetail carModel)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> CarTechnicalDetailsPage(int id)
         {
-            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -81,11 +81,11 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CarTechnicalDetailsPage(int id, CarDetails carTechnicalModel)
+        public async Task<IActionResult> CarTechnicalDetailsPage(int id, CarDetail carTechnicalModel)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.FuelType = carTechnicalModel.FuelType;
@@ -108,7 +108,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> RentalInformationPage(int id)
         {
-            var car = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var car = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
             if (car == null)
             {
                 return NotFound();
@@ -117,11 +117,11 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RentalInformationPage(int id, CarDetails rentalInfoModel)
+        public async Task<IActionResult> RentalInformationPage(int id, CarDetail rentalInfoModel)
         {
             if (ModelState.IsValid)
             {
-                var car = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var car = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
                 if (car != null)
                 {
                     car.RentalPricePerDay = rentalInfoModel.RentalPricePerDay;
@@ -146,7 +146,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> AdditionalRentalDetailsPage(int id)
         {
-            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -155,11 +155,11 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AdditionalRentalDetailsPage(int id, CarDetails additionalDetailsModel)
+        public async Task<IActionResult> AdditionalRentalDetailsPage(int id, CarDetail additionalDetailsModel)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.DistanceFromUser = additionalDetailsModel.DistanceFromUser;
@@ -180,7 +180,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> CarFeaturesPage(int id)
         {
-            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -189,11 +189,11 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CarFeaturesPage(int id, CarDetails featuresModel)
+        public async Task<IActionResult> CarFeaturesPage(int id, CarDetail featuresModel)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.HasAirConditioning = featuresModel.HasAirConditioning;
@@ -217,7 +217,7 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> ExteriorSpecificationsPage(int id)
         {
-            var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
             if (user == null)
             {
                 return NotFound();
@@ -226,11 +226,11 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ExteriorSpecificationsPage(int id, CarDetails exteriorModel)
+        public async Task<IActionResult> ExteriorSpecificationsPage(int id, CarDetail exteriorModel)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
                 if (user != null)
                 {
                     user.Color = exteriorModel.Color;

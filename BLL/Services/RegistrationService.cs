@@ -14,20 +14,20 @@ namespace BLL.Services
             Context = context;
         }
 
-        public async Task<CarDetails?> GetCarDetailsByIdAsync(int id)
+        public async Task<CarDetail?> GetCarDetailsByIdAsync(int id)
         {
-            return await Context.CarDetails.SingleOrDefaultAsync(c => c.CarId == id);
+            return await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
         }
 
-        public async Task AddCarAsync(CarDetails car)
+        public async Task AddCarAsync(CarDetail car)
         {
-            Context.CarDetails.Add(car);
+            Context.CarDetail.Add(car);
             await Context.SaveChangesAsync();
         }
 
-        public async Task UpdateCarDetailsAsync(CarDetails car)
+        public async Task UpdateCarDetailsAsync(CarDetail car)
         {
-            Context.CarDetails.Update(car);
+            Context.CarDetail.Update(car);
             await Context.SaveChangesAsync();
         }
 

@@ -16,8 +16,12 @@ namespace PresentationLayer.Controllers
 
         public IActionResult CarsListingPagePremium()
         {
-            IEnumerable<CarDetails> carDetails = Context.CarDetails.ToList();
-            return View(carDetails);
+            IEnumerable<CarDetail> CarDetail = Context.CarDetail.ToList();
+            if(CarDetail == null)
+            {
+                return View(CarDetail);
+            }
+            return View(CarDetail);
         }
                 
         /*public IActionResult CarsListingPage()
@@ -27,7 +31,7 @@ namespace PresentationLayer.Controllers
 
         public IActionResult CarBookingPage(int id)
         {
-            var car = Context.CarDetails.FirstOrDefault(c => c.CarId == id);
+            var car = Context.CarDetail.FirstOrDefault(c => c.CarId == id);
             if (car == null)
             {
                 return NotFound();
@@ -39,7 +43,7 @@ namespace PresentationLayer.Controllers
         public IActionResult CarBookingPage()
         {
 
-            var carModel = new RentalDetails
+            var carModel = new RentalDetail
             {
                 FromDateTime = TempData["FromDateTime"] != null ? (DateTime)TempData["FromDateTime"] : DateTime.Now,
                 ToDateTime = TempData["ToDateTime"] != null ? (DateTime)TempData["ToDateTime"] : DateTime.Now,

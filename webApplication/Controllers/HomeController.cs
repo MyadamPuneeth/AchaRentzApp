@@ -40,10 +40,10 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> HomePage(RentalDetails rdModel)
+        public async Task<IActionResult> HomePage(RentalDetail rdModel)
         {
             rdModel.RentalDuration = (rdModel.ToDateTime - rdModel.FromDateTime).TotalHours;
-            HttpContext.Session.SetInt32("duration", (int)Math.Round(rdModel.RentalDuration));
+            HttpContext.Session.SetInt32("duration", (int)Math.Round((double)rdModel.RentalDuration));
             TempData["ToDateTime"] = rdModel.ToDateTime;  
             TempData["FromDateTime"] = rdModel.FromDateTime; 
             TempData["Location"] = rdModel.Location;

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DAL.Models.CarDetails>
+﻿@model IEnumerable<DAL.Models.CarDetail>
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var totalCars = Model.Count();
@@ -12,7 +12,7 @@
                 <div class="filter-options">
                     <h3>Filters</h3>
 
-                    @await Html.PartialAsync("_CarDateTime", new RentalDetails
+                    @await Html.PartialAsync("_CarDateTime", new RentalDetail
                {
                    FromDateTime = TempData["FromDateTime"] != null ? (DateTime)TempData["FromDateTime"] : DateTime.Now,
                    ToDateTime = TempData["ToDateTime"] != null ? (DateTime)TempData["ToDateTime"] : DateTime.Now.AddHours(1)
