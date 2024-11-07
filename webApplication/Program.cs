@@ -52,7 +52,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<CarRegistrationRepository>();
-builder.Services.AddScoped<IReusableCodeSnippets>();
+builder.Services.AddScoped<ReusableCodeSnippets>();
 
 var app = builder.Build();
 

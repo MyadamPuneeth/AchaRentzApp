@@ -10,9 +10,10 @@ namespace PresentationLayer.Controllers
     {
         private readonly CarRegistrationService CarService;
         private readonly ReusableCodeSnippets Reuser;
-        public CarRegisterController(CarRegistrationService carService, IReusableCodeSnippets reuser)
+        public CarRegisterController(CarRegistrationService carService, ReusableCodeSnippets reuser)
         {
             CarService = carService;
+            Reuser = reuser;
         }
 
         [HttpGet]
@@ -26,9 +27,8 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Store carDto in TempData after serializing
                 TempData["CarDto"] = JsonConvert.SerializeObject(carDto);
-                TempData.Keep("CarDto"); // Keep TempData for next requests
+                TempData.Keep("CarDto");
 
                 return RedirectToAction("CarBasicDetailsPage");
             }
@@ -54,8 +54,7 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-
+                TempDataStorage(carDto);
                 return RedirectToAction("CarTechnicalDetailsPage");
             }
             return View(carDto);
@@ -81,14 +80,7 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 // Retrieve existing CarDto from TempData
-                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
-
-                // Call the service method to update fields
-                Reuser.SaveDataTemp(existingCarDto, carDto);
-
-                // Save the updated DTO back to TempData
-                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
-                TempData.Keep("CarDto");
+                TempDataStorage(carDto);
 
                 return RedirectToAction("CarTechnicalDetailsPage");
             }
@@ -115,14 +107,7 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 // Retrieve existing CarDto from TempData
-                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
-
-                // Call the service method to update fields
-                Reuser.SaveDataTemp(existingCarDto, carDto);
-
-                // Save the updated DTO back to TempData
-                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
-                TempData.Keep("CarDto");
+                TempDataStorage(carDto);
 
                 return RedirectToAction("CarTechnicalDetailsPage");
             }
@@ -149,14 +134,7 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 // Retrieve existing CarDto from TempData
-                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
-
-                // Call the service method to update fields
-                Reuser.SaveDataTemp(existingCarDto, carDto);
-
-                // Save the updated DTO back to TempData
-                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
-                TempData.Keep("CarDto");
+                TempDataStorage(carDto);
 
                 return RedirectToAction("CarTechnicalDetailsPage");
             }
@@ -182,15 +160,7 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve existing CarDto from TempData
-                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
-
-                // Call the service method to update fields
-                Reuser.SaveDataTemp(existingCarDto, carDto);
-
-                // Save the updated DTO back to TempData
-                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
-                TempData.Keep("CarDto");
+                TempDataStorage(carDto);
 
                 return RedirectToAction("CarTechnicalDetailsPage");
             }
@@ -216,9 +186,7 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                TempData["CarDto"] = JsonConvert.SerializeObject(carDto); // Final update before success
-                TempData.Keep("CarDto");
-
+                TempDataStorage(carDto);
                 // Complete the process and redirect to the success page
                 return RedirectToAction("CarRegistrationSuccessPage");
             }
@@ -242,10 +210,10 @@ namespace PresentationLayer.Controllers
             return View();
         }
 
-        public void TempDataStorage<T>(T entity) where T : class
+        public void TempDataStorage(CarDto entity)
         {
             // Retrieve existing CarDto from TempData
-            var existingDto = JsonConvert.DeserializeObject<T>(TempData["Dto"] as string);
+            var existingDto = JsonConvert.DeserializeObject(TempData["CarDto"] as string);
 
             // Call the service method to update fields
             Reuser.SaveDataTemp(existingDto, entity);
