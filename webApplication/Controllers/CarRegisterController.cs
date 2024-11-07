@@ -1,21 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BLL.Services;
-using DAL.Models;
-using PresentationLayer.ViewModels;
-using DAL.Data;
-using Microsoft.EntityFrameworkCore;
+using AchaRentzBLL.DTO;
+using Newtonsoft.Json;
+using AchaRentzBLL.Interfaces.ReusableLogics;
 
 namespace PresentationLayer.Controllers
 {
     public class CarRegisterController : Controller
     {
-        private readonly CarService CarService;
-        private readonly AppDbContext Context;
-
-        public CarRegisterController(CarService carService, AppDbContext context)
+        private readonly CarRegistrationService CarService;
+        private readonly ReusableCodeSnippets Reuser;
+        public CarRegisterController(CarRegistrationService carService, IReusableCodeSnippets reuser)
         {
             CarService = carService;
-            Context = context;
         }
 
         [HttpGet]
@@ -25,237 +22,238 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterACarPage(CarDetail carModel)
+        public async Task<IActionResult> RegisterACarPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                await CarService.AddCarAsync(carModel);
-                HttpContext.Session.SetInt32("CarId", carModel.CarId);
-                return RedirectToAction("CarBasicDetailsPage", new { id = carModel.CarId });
+                // Store carDto in TempData after serializing
+                TempData["CarDto"] = JsonConvert.SerializeObject(carDto);
+                TempData.Keep("CarDto"); // Keep TempData for next requests
+
+                return RedirectToAction("CarBasicDetailsPage");
             }
-            return View(carModel);
+            return View(carDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CarBasicDetailsPage(int id)
+        public async Task<IActionResult> CarBasicDetailsPage()
         {
-            var car = await CarService.GetCarDetailsByIdAsync(id);
-            if (car == null) return NotFound();
-            return View(car);
+            if (TempData["CarDto"] is string carDtoJson)
+            {
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                TempData.Keep("CarDto"); // Keep TempData for next requests
+
+                return View(carDto);
+            }
+
+            return RedirectToAction("ErrorPage");
         }
 
-        
-
         [HttpPost]
-        public async Task<IActionResult> CarBasicDetailsPage(int id, CarBasicDetailsViewModel model)
+        public IActionResult CarBasicDetailsPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var car = await CarService.GetCarDetailsByIdAsync(id);
-                if (car != null)
-                {
-                    car.RcNumber = model.RcNumber ?? 0;
-                    car.InsuranceNumber = model.InsuranceNumber ?? 0;
-                    car.LicensePlate = model.LicensePlate;
-                    car.Mileage = model.Mileage;
-                    car.Year = model.Year;
+                
 
-                    await CarService.UpdateCarDetailsAsync(car);
-                    return RedirectToAction("CarTechnicalDetailsPage", new { id = car.CarId });
-                }
-                return NotFound();
+                return RedirectToAction("CarTechnicalDetailsPage");
             }
-            return View(model);
+            return View(carDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CarTechnicalDetailsPage(int id)
+        public IActionResult CarTechnicalDetailsPage()
         {
-            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-            if (user == null)
+            if (TempData["CarDto"] is string carDtoJson)
             {
-                return NotFound();
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                TempData.Keep("CarDto");
+
+                return View(carDto);
             }
 
-            return View(user);
+            return RedirectToAction("ErrorPage");
         }
 
         [HttpPost]
-        public async Task<IActionResult> CarTechnicalDetailsPage(int id, CarDetail carTechnicalModel)
+        public IActionResult CarTechnicalDetailsPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-                if (user != null)
-                {
-                    user.FuelType = carTechnicalModel.FuelType;
-                    user.Mileage = carTechnicalModel.Mileage;
-                    user.Transmission = carTechnicalModel.Transmission;
-                    user.FuelCapacity = carTechnicalModel.FuelCapacity;
+                // Retrieve existing CarDto from TempData
+                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
 
-                    Context.SaveChanges();
+                // Call the service method to update fields
+                Reuser.SaveDataTemp(existingCarDto, carDto);
 
-                    return RedirectToAction("RentalInformationPage", new { id = user.CarId });
-                }
-                else
-                {
-                    return NotFound(); // Return 404 if the user was not found
-                }
+                // Save the updated DTO back to TempData
+                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
+                TempData.Keep("CarDto");
+
+                return RedirectToAction("CarTechnicalDetailsPage");
             }
-            return View();
+            return View(carDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> RentalInformationPage(int id)
+        public IActionResult RentalInformationPage()
         {
-            var car = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-            if (car == null)
+            if (TempData["CarDto"] is string carDtoJson)
             {
-                return NotFound();
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                TempData.Keep("CarDto");
+
+                return View(carDto);
             }
-            return View(car);
+
+            return RedirectToAction("ErrorPage");
         }
 
         [HttpPost]
-        public async Task<IActionResult> RentalInformationPage(int id, CarDetail rentalInfoModel)
+        public IActionResult RentalInformationPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var car = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-                if (car != null)
-                {
-                    car.RentalPricePerDay = rentalInfoModel.RentalPricePerDay;
-                    car.IsAvailable = rentalInfoModel.IsAvailable;
-                    car.RentalLocation = rentalInfoModel.RentalLocation;
-                    car.AvailableFrom = rentalInfoModel.AvailableFrom;
-                    car.AvailableUntil = rentalInfoModel.AvailableUntil;
-                    car.MinimumRentalPeriod = rentalInfoModel.MinimumRentalPeriod;
-                    car.HomeDeliveryAvailable = rentalInfoModel.HomeDeliveryAvailable;
+                // Retrieve existing CarDto from TempData
+                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
 
-                    await Context.SaveChangesAsync();
-                    return RedirectToAction("AdditionalRentalDetailsPage", new { id = car.CarId });
-                }
-                else
-                {
-                    return NotFound();
-                }
+                // Call the service method to update fields
+                Reuser.SaveDataTemp(existingCarDto, carDto);
+
+                // Save the updated DTO back to TempData
+                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
+                TempData.Keep("CarDto");
+
+                return RedirectToAction("CarTechnicalDetailsPage");
             }
-            return View(rentalInfoModel);
+            return View(carDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> AdditionalRentalDetailsPage(int id)
+        public IActionResult AdditionalRentalDetailsPage()
         {
-            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-            if (user == null)
+            if (TempData["CarDto"] is string carDtoJson)
             {
-                return NotFound();
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                TempData.Keep("CarDto");
+
+                return View(carDto);
             }
-            return View(user);
+
+            return RedirectToAction("ErrorPage");
         }
 
         [HttpPost]
-        public async Task<IActionResult> AdditionalRentalDetailsPage(int id, CarDetail additionalDetailsModel)
+        public IActionResult AdditionalRentalDetailsPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-                if (user != null)
-                {
-                    user.DistanceFromUser = additionalDetailsModel.DistanceFromUser;
-                    user.UserRating = additionalDetailsModel.UserRating;
-                    user.Notes = additionalDetailsModel.Notes;
+                // Retrieve existing CarDto from TempData
+                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
 
-                    await Context.SaveChangesAsync();
-                    return RedirectToAction("CarFeaturesPage", new { id = user.CarId });
-                }
-                else
-                {
-                    return NotFound();
-                }
+                // Call the service method to update fields
+                Reuser.SaveDataTemp(existingCarDto, carDto);
+
+                // Save the updated DTO back to TempData
+                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
+                TempData.Keep("CarDto");
+
+                return RedirectToAction("CarTechnicalDetailsPage");
             }
-            return View(additionalDetailsModel);
+            return View(carDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CarFeaturesPage(int id)
+        public IActionResult CarFeaturesPage()
         {
-            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-            if (user == null)
+            if (TempData["CarDto"] is string carDtoJson)
             {
-                return NotFound();
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                TempData.Keep("CarDto");
+
+                return View(carDto);
             }
-            return View(user);
+
+            return RedirectToAction("ErrorPage");
         }
 
         [HttpPost]
-        public async Task<IActionResult> CarFeaturesPage(int id, CarDetail featuresModel)
+        public IActionResult CarFeaturesPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-                if (user != null)
-                {
-                    user.HasAirConditioning = featuresModel.HasAirConditioning;
-                    user.HasGPS = featuresModel.HasGPS;
-                    user.HasBluetooth = featuresModel.HasBluetooth;
-                    user.HasBackupCamera = featuresModel.HasBackupCamera;
-                    user.HasChildSeat = featuresModel.HasChildSeat;
-                    user.HasHeatedSeats = featuresModel.HasHeatedSeats;
+                // Retrieve existing CarDto from TempData
+                var existingCarDto = JsonConvert.DeserializeObject<CarDto>(TempData["CarDto"] as string);
 
-                    await Context.SaveChangesAsync();
-                    return RedirectToAction("ExteriorSpecificationsPage", new { id = user.CarId });
-                }
-                else
-                {
-                    return NotFound();
-                }
+                // Call the service method to update fields
+                Reuser.SaveDataTemp(existingCarDto, carDto);
+
+                // Save the updated DTO back to TempData
+                TempData["CarDto"] = JsonConvert.SerializeObject(existingCarDto);
+                TempData.Keep("CarDto");
+
+                return RedirectToAction("CarTechnicalDetailsPage");
             }
-            return View(featuresModel);
+            return View(carDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> ExteriorSpecificationsPage(int id)
+        public IActionResult ExteriorSpecificationsPage()
         {
-            var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-            if (user == null)
+            if (TempData["CarDto"] is string carDtoJson)
             {
-                return NotFound();
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                TempData.Keep("CarDto");
+
+                return View(carDto);
             }
-            return View(user);
+
+            return RedirectToAction("ErrorPage");
         }
 
         [HttpPost]
-        public async Task<IActionResult> ExteriorSpecificationsPage(int id, CarDetail exteriorModel)
+        public IActionResult ExteriorSpecificationsPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var user = await Context.CarDetail.SingleOrDefaultAsync(c => c.CarId == id);
-                if (user != null)
-                {
-                    user.Color = exteriorModel.Color;
-                    user.Length = exteriorModel.Length;
-                    user.Width = exteriorModel.Width;
-                    user.Height = exteriorModel.Height;
-                    user.SeatingCapacity = exteriorModel.SeatingCapacity;
-                    user.NumberOfDoors = exteriorModel.NumberOfDoors;
+                TempData["CarDto"] = JsonConvert.SerializeObject(carDto); // Final update before success
+                TempData.Keep("CarDto");
 
-                    await Context.SaveChangesAsync();
-                    return RedirectToAction("CarRegistrationSuccessPage");
-                }
-                else
-                {
-                    return NotFound();
-                }
+                // Complete the process and redirect to the success page
+                return RedirectToAction("CarRegistrationSuccessPage");
             }
-            return View(exteriorModel);
+            return View(carDto);
         }
 
         public IActionResult CarRegistrationSuccessPage()
         {
+            if (TempData["CarDto"] is string carDtoJson)
+            {
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                CarService.AddCarAsync(carDto);
+                return View(carDto); // Display success message with CarDto details if needed
+            }
+
+            return RedirectToAction("ErrorPage");
+        }
+
+        public IActionResult ErrorPage()
+        {
             return View();
         }
 
-    }
+        public void TempDataStorage<T>(T entity) where T : class
+        {
+            // Retrieve existing CarDto from TempData
+            var existingDto = JsonConvert.DeserializeObject<T>(TempData["Dto"] as string);
 
+            // Call the service method to update fields
+            Reuser.SaveDataTemp(existingDto, entity);
+
+            // Save the updated DTO back to TempData
+            TempData["Dto"] = JsonConvert.SerializeObject(existingDto);
+            TempData.Keep("Dto");
+        }
+
+    }
 }

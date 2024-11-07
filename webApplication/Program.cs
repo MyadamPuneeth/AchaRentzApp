@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using BLL.Interfaces;
 using BLL.Services;
+using AchaRentzDAL.Repositories;
+using AchaRentzBLL.Interfaces.ReusableLogics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,8 +40,8 @@ builder.Services.AddHttpContextAccessor();
     options.Filters.Add(new PageAccessFilter());
 });*/
 
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<CarService>();
+builder.Services.AddScoped<IUserService, UserRegistrationService>();
+builder.Services.AddScoped<CarRegistrationService>();
 builder.Services.AddScoped<IAuthService, AuthenticationService>();
 
 // Register the DbContext with SQL Server
@@ -49,6 +51,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<CarRegistrationRepository>();
+builder.Services.AddScoped<IReusableCodeSnippets>();
 
 var app = builder.Build();
 

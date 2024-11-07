@@ -6,11 +6,11 @@ using System;
 
 namespace BLL.Services
 {
-    public class UserService : IUserService
+    public class UserRegistrationService : IUserService
     {
         private readonly AppDbContext Context;
 
-        public UserService(AppDbContext context)
+        public UserRegistrationService(AppDbContext context)
         {
             Context = context;
         }

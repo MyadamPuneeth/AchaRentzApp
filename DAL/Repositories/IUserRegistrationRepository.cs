@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AchaRentzDAL.Repositories
 {
-    public class RegistrationRepository
+    public interface IUserRegistrationRepository
     {
-
+        
     }
 }
