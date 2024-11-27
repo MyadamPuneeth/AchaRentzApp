@@ -1,0 +1,72 @@
+﻿.upload-car-images-section {
+    text-align: center;
+    width: 100%;
+}
+
+.upload-car-images-page-logo-and-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.upload-car-imgs-page-logo {
+    width: 200px;
+}
+
+.upload-car-images-container {
+    width: 60%;
+    margin: 0 auto;
+}
+
+    .upload-car-images-container h1 {
+        font-size: 48px;
+        color: #4CAF50;
+    }
+
+.promo-car-image {
+    margin-top: 20px;
+    width: 200px;
+}
+
+.image-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.image-upload {
+    background-color: #fff;
+    border: 2px dashed #ddd;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+    .image-upload input[type="file"] {
+        display: none;
+    }
+
+    .image-upload label {
+        display: block;
+        background-color: #f4f4f4;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .image-upload p {
+        font-size: 14px;
+        color: #777;
+    }
+
+.upload-photos-btn {
+    margin-top: 30px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

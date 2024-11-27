@@ -1,0 +1,166 @@
+﻿/* Registration Page (Extra Details) */
+
+.registration-form-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 130vh;
+}
+
+.registration-form {
+    background: #4d4d4d;
+    color: white;
+    border-radius: 5px;
+}
+
+    .registration-form h2 {
+        margin-top: 7vh;
+        margin-bottom: -7vh;
+        text-align: left;
+        padding-left: 90px;
+    }
+
+.form-for-registration-body {
+    display: flex;
+    background: #4d4d4d;
+    width: 70vw;
+    height: 78vh;
+    align-items: center;
+    justify-items: center;
+    align-content: space-around;
+    justify-content: space-around;
+}
+
+.form-button {
+    background: #29D23D;
+    color: white;
+    margin-top: -30vh;
+    margin-bottom: 10vh;
+    height: 10vh;
+    width: 20vw;
+    border: 0;
+    border-radius: 3px;
+}
+
+    .form-button:hover {
+        background: #0EAB20;
+    }
+
+.register-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3rem 1rem;
+}
+
+.register-box {
+    background: #4D4D4D;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: white;
+}
+
+    .register-box h2 {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: white;
+    }
+
+    .register-box input {
+        width: 27vw;
+        padding: 0.75rem;
+        margin: 0.5rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .register-box form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .register-box button {
+        padding: 0.75rem 2rem;
+        background-color: #33cc33;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 5px;
+    }
+
+        .register-box button:hover {
+            background-color: #28a828;
+        }
+
+.form-block-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30vw;
+    height: 60vh;
+}
+
+.form-block-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 30vw;
+    height: 60vh;
+}
+
+.form-group-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+}
+
+.small-form-button {
+    width: 15vw;
+}
+
+.form-group input {
+    background: white;
+    border: 0;
+    height: 30px;
+    width: 20vw;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+.form-group textarea {
+    width: 20vw;
+    height: 30px;
+    border: 0;
+    border-radius: 3px;
+    align-content: center;
+    padding-left: 10px;
+}
+
+.forgot-password {
+    display: block;
+    margin: 1rem 0;
+    text-decoration: none;
+    color: #33cc33;
+}
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+.social-register {
+    margin-top: 1rem;
+}
+
+    .social-register a {
+        margin: 0 0.5rem;
+    }

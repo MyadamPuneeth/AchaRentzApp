@@ -30,7 +30,7 @@ namespace PresentationLayer.Controllers
                 return RedirectToAction("HomePage", new { city = SelectedCity });
             }
 
-            ViewBag.Message = "Please select a city.";
+            ViewBag.Message = "Please select a city."; 
             return View();
         }
         public IActionResult HomePage(string city)

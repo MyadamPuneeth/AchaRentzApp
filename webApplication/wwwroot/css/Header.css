@@ -1,0 +1,56 @@
+﻿/* Header styles */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+    height: 5vw;
+    background:#4D4D4D
+}
+
+.logo {
+    display: flex;
+    padding-left: 30px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    height: 3vw;
+}
+
+    .logo h1 a {
+        display: flex;
+        text-decoration: none;
+        font-family: 'Georgia', serif;
+        font-size: 21px;
+        color: #00a651;
+    }
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    top: 1vh;
+    left: 17vw;
+}
+
+    nav ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 12px;
+    }
+
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+    .auth-links a {
+        text-decoration: none;
+        color: white;
+        padding-right: 30px;
+        font-weight: bold;
+    }

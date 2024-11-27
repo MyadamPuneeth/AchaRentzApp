@@ -1,0 +1,159 @@
+﻿/* Car details page section */
+
+.car-booking-page {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.car-details {
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 0;
+}
+
+.car-images {
+    display: flex;
+    gap: 10px;
+}
+
+    .car-images img {
+        width: 250px;
+        height: auto;
+    }
+
+.car-info h2 {
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.car-info p {
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+}
+
+    .rating span {
+        font-size: 18px;
+        margin-right: 5px;
+    }
+
+.stars {
+    color: #33cc33;
+}
+
+.reviews-section {
+    margin: 30px 0;
+}
+
+.reviews {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.review {
+    background: #f7f7f7;
+    padding: 15px;
+    width: 24%;
+    border-radius: 5px;
+}
+
+    .review p {
+        margin: 0;
+    }
+
+.car-location {
+    margin-bottom: 30px;
+}
+
+    .car-location img {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 10px;
+    }
+
+.car-features {
+    margin-bottom: 30px;
+}
+
+    .car-features ul {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .car-features ul li {
+            width: 45%;
+            margin: 10px 0;
+        }
+
+.policies {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+    .policies input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    .policies a {
+        color: #33cc33;
+        margin-left: 10px;
+    }
+
+.faq-section {
+    margin-bottom: 30px;
+}
+
+.faq {
+    background: #f7f7f7;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.checkout-box {
+    position: absolute;
+    top: 100px;
+    right: 30px;
+    background: #f9f9f9;
+    padding: 20px;
+    width: 25vw;
+    height: 55vh;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+    .checkout-box h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .checkout-box p {
+        margin-bottom: 10px;
+    }
+
+    .checkout-box button.confirm-booking {
+        background-color: #33cc33;
+        color: white;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+        .checkout-box button.confirm-booking:hover {
+            background-color: #28a828;
+        }

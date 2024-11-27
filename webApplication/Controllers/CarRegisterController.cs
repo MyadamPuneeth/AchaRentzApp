@@ -2,19 +2,49 @@
 using BLL.Services;
 using AchaRentzBLL.DTO;
 using Newtonsoft.Json;
-using AchaRentzBLL.Interfaces.ReusableLogics;
+using System.Threading.Tasks;
 
 namespace PresentationLayer.Controllers
 {
     public class CarRegisterController : Controller
     {
         private readonly CarRegistrationService CarService;
-        private readonly ReusableCodeSnippets Reuser;
-        public CarRegisterController(CarRegistrationService carService, ReusableCodeSnippets reuser)
+
+        public CarRegisterController(CarRegistrationService carService)
         {
             CarService = carService;
-            Reuser = reuser;
         }
+
+        private void SaveCarDtoToTempData(CarDto carDto)
+        {
+            TempData["CarDto"] = JsonConvert.SerializeObject(carDto);
+            TempData.Keep("CarDto"); // Ensures TempData persists to the next request
+        }
+
+        private CarDto GetCarDtoFromTempData()
+        {
+            if (TempData["CarDto"] is string carDtoJson)
+            {
+                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
+                TempData.Keep("CarDto"); // Keep TempData alive for the next request
+                return carDto;
+            }
+            return new CarDto();
+        }
+
+        private void UpdateCarDto(CarDto existingCarDto, CarDto newCarDto)
+        {
+            // Copy properties from newCarDto to existingCarDto if they are not null or empty
+            foreach (var property in typeof(CarDto).GetProperties())
+            {
+                var newValue = property.GetValue(newCarDto);
+                if (newValue != null)
+                {
+                    property.SetValue(existingCarDto, newValue);
+                }
+            }
+        }
+
 
         [HttpGet]
         public IActionResult RegisterACarPage()
@@ -23,30 +53,21 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterACarPage(CarDto carDto)
+        public IActionResult RegisterACarPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                TempData["CarDto"] = JsonConvert.SerializeObject(carDto);
-                TempData.Keep("CarDto");
-
+                SaveCarDtoToTempData(carDto);
                 return RedirectToAction("CarBasicDetailsPage");
             }
             return View(carDto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CarBasicDetailsPage()
+        public IActionResult CarBasicDetailsPage()
         {
-            if (TempData["CarDto"] is string carDtoJson)
-            {
-                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
-                TempData.Keep("CarDto"); // Keep TempData for next requests
-
-                return View(carDto);
-            }
-
-            return RedirectToAction("ErrorPage");
+            var carDto = GetCarDtoFromTempData();
+            return View(carDto);
         }
 
         [HttpPost]
@@ -54,7 +75,9 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                TempDataStorage(carDto);
+                var existingCarDto = GetCarDtoFromTempData();
+                UpdateCarDto(existingCarDto, carDto);
+                SaveCarDtoToTempData(existingCarDto);
                 return RedirectToAction("CarTechnicalDetailsPage");
             }
             return View(carDto);
@@ -63,15 +86,8 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public IActionResult CarTechnicalDetailsPage()
         {
-            if (TempData["CarDto"] is string carDtoJson)
-            {
-                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
-                TempData.Keep("CarDto");
-
-                return View(carDto);
-            }
-
-            return RedirectToAction("ErrorPage");
+            var carDto = GetCarDtoFromTempData();
+            return View(carDto);
         }
 
         [HttpPost]
@@ -79,10 +95,10 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve existing CarDto from TempData
-                TempDataStorage(carDto);
-
-                return RedirectToAction("CarTechnicalDetailsPage");
+                var existingCarDto = GetCarDtoFromTempData();
+                UpdateCarDto(existingCarDto, carDto); 
+                SaveCarDtoToTempData(existingCarDto);
+                return RedirectToAction("RentalInformationPage");
             }
             return View(carDto);
         }
@@ -90,15 +106,8 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public IActionResult RentalInformationPage()
         {
-            if (TempData["CarDto"] is string carDtoJson)
-            {
-                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
-                TempData.Keep("CarDto");
-
-                return View(carDto);
-            }
-
-            return RedirectToAction("ErrorPage");
+            var carDto = GetCarDtoFromTempData();
+            return View(carDto);
         }
 
         [HttpPost]
@@ -106,10 +115,10 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve existing CarDto from TempData
-                TempDataStorage(carDto);
-
-                return RedirectToAction("CarTechnicalDetailsPage");
+                var existingCarDto = GetCarDtoFromTempData();
+                UpdateCarDto(existingCarDto, carDto);
+                SaveCarDtoToTempData(existingCarDto);
+                return RedirectToAction("AdditionalRentalDetailsPage");
             }
             return View(carDto);
         }
@@ -117,15 +126,8 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public IActionResult AdditionalRentalDetailsPage()
         {
-            if (TempData["CarDto"] is string carDtoJson)
-            {
-                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
-                TempData.Keep("CarDto");
-
-                return View(carDto);
-            }
-
-            return RedirectToAction("ErrorPage");
+            var carDto = GetCarDtoFromTempData();
+            return View(carDto);
         }
 
         [HttpPost]
@@ -133,10 +135,10 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve existing CarDto from TempData
-                TempDataStorage(carDto);
-
-                return RedirectToAction("CarTechnicalDetailsPage");
+                var existingCarDto = GetCarDtoFromTempData();
+                UpdateCarDto(existingCarDto, carDto);
+                SaveCarDtoToTempData(existingCarDto);
+                return RedirectToAction("CarFeaturesPage");
             }
             return View(carDto);
         }
@@ -144,15 +146,8 @@ namespace PresentationLayer.Controllers
         [HttpGet]
         public IActionResult CarFeaturesPage()
         {
-            if (TempData["CarDto"] is string carDtoJson)
-            {
-                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
-                TempData.Keep("CarDto");
-
-                return View(carDto);
-            }
-
-            return RedirectToAction("ErrorPage");
+            var carDto = GetCarDtoFromTempData();
+            return View(carDto);
         }
 
         [HttpPost]
@@ -160,34 +155,32 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                TempDataStorage(carDto);
-
-                return RedirectToAction("CarTechnicalDetailsPage");
+                var existingCarDto = GetCarDtoFromTempData();
+                UpdateCarDto(existingCarDto, carDto);
+                SaveCarDtoToTempData(existingCarDto);
+                return RedirectToAction("ExteriorSpecificationsPage");
             }
             return View(carDto);
         }
 
+
         [HttpGet]
         public IActionResult ExteriorSpecificationsPage()
         {
-            if (TempData["CarDto"] is string carDtoJson)
-            {
-                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
-                TempData.Keep("CarDto");
-
-                return View(carDto);
-            }
-
-            return RedirectToAction("ErrorPage");
+            var carDto = GetCarDtoFromTempData();
+            return View(carDto);
         }
 
         [HttpPost]
-        public IActionResult ExteriorSpecificationsPage(CarDto carDto)
+        public async Task<IActionResult> ExteriorSpecificationsPage(CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                TempDataStorage(carDto);
-                // Complete the process and redirect to the success page
+                var existingCarDto = GetCarDtoFromTempData();
+                UpdateCarDto(existingCarDto, carDto);
+                SaveCarDtoToTempData(existingCarDto);
+                carDto = GetCarDtoFromTempData();
+                await CarService.AddCarAsync(carDto);
                 return RedirectToAction("CarRegistrationSuccessPage");
             }
             return View(carDto);
@@ -195,33 +188,13 @@ namespace PresentationLayer.Controllers
 
         public IActionResult CarRegistrationSuccessPage()
         {
-            if (TempData["CarDto"] is string carDtoJson)
-            {
-                var carDto = JsonConvert.DeserializeObject<CarDto>(carDtoJson);
-                CarService.AddCarAsync(carDto);
-                return View(carDto); // Display success message with CarDto details if needed
-            }
-
-            return RedirectToAction("ErrorPage");
+            var carDto = GetCarDtoFromTempData();
+            return View(carDto);
         }
 
         public IActionResult ErrorPage()
         {
             return View();
         }
-
-        public void TempDataStorage(CarDto entity)
-        {
-            // Retrieve existing CarDto from TempData
-            var existingDto = JsonConvert.DeserializeObject(TempData["CarDto"] as string);
-
-            // Call the service method to update fields
-            Reuser.SaveDataTemp(existingDto, entity);
-
-            // Save the updated DTO back to TempData
-            TempData["Dto"] = JsonConvert.SerializeObject(existingDto);
-            TempData.Keep("Dto");
-        }
-
     }
 }

@@ -36,5 +36,7 @@ namespace AchaRentzDAL.Repositories
             Context.CarDetail.Update(car);
             await Context.SaveChangesAsync();
         }
+
+
     }
 }

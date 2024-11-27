@@ -1,0 +1,148 @@
+﻿.car-details-container {
+    background-color: green;
+    color: #fff;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.car-details-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .car-details-header h1 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #A4CD3C;
+    }
+
+.car-details-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.car-details-form-label {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.car-details-form-input,
+.car-details-number-input {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.car-details-upload-btn {
+    margin-top: 10px;
+    font-size: 12px;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+    .car-details-upload-btn:hover {
+        background-color: #ddd;
+    }
+
+.car-details-submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+}
+
+    .car-details-submit-btn:hover {
+        background-color: #45a049;
+    }
+
+.car-details-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.car-gallery {
+    flex: 2;
+    margin-right: 20px;
+}
+
+    .car-gallery img {
+        width: 100%;
+        height: auto;
+    }
+
+.car-thumbnails {
+    display: flex;
+    gap: 10px;
+}
+
+    .car-thumbnails img {
+        width: 70px;
+        height: auto;
+        cursor: pointer;
+    }
+
+.car-info {
+    flex: 3;
+}
+
+.car-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.car-header h3 {
+    color: gray;
+    margin: 5px 0 20px 0;
+}
+
+.ratings-reviews {
+    margin-bottom: 20px;
+}
+
+    .ratings-reviews .rating {
+        font-size: 24px;
+        color: #1cbb6f;
+    }
+
+    .ratings-reviews i {
+        color: gold;
+    }
+
+.reviews {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+}
+
+.review {
+    margin-bottom: 10px;
+}
+
+.car-location h4, .car-features h4, .policies h4, .faq h4 {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.car-features ul, .faq ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+    .car-features ul li, .faq ul li {
+        padding: 5px 0;
+    }
+

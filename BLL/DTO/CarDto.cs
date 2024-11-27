@@ -6,9 +6,6 @@ namespace AchaRentzBLL.DTO
 {
     public class CarDto
     {
-        [Key]
-        public int CarId { get; set; }
-
         public string? OwnerAddress { get; set; }
 
         public string? Make { get; set; }

@@ -1,0 +1,43 @@
+﻿.register-a-car-section {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+
+.register-a-car-container {
+    background-color: #4D4D4D;
+    color: white;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 40%;
+    height: 65vh;
+    border-radius: 8px;
+}
+
+.register-a-car-form input, .register-a-car-btn {
+    display: block;
+    width: 95%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.register-a-car-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.acha-rentz-promo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 76vh;
+}
+
+.register-a-car-page-logo {
+    width: 30vw;
+}

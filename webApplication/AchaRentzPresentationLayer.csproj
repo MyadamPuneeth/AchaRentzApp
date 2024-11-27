@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Test\**" />
-    <Content Remove="Views\Test\**" />
-    <EmbeddedResource Remove="Views\Test\**" />
-    <None Remove="Views\Test\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\TestController.cs" />
     <Compile Remove="ViewModels\CarTechincalDetailsViewModel.cs" />
   </ItemGroup>
 

@@ -1,0 +1,110 @@
+﻿/* Test page (temp)*/
+
+.car-tile {
+    /*background: grey;*/
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    width: 20vw;
+    height: 55vh;
+    margin-left: 3vw;
+    margin-top: 5vh;
+}
+
+.car-img-div {
+    width: 20vw;
+    height: 35vh;
+    border-radius: 15px 15px 0px 0px;
+    background-image: url('../Images/car-tile-img.png');
+    background-size: 100% 100%;
+    display: flex;
+    align-items: last baseline;
+}
+
+.car-rating-class {
+    height: 4.6vh;
+    width: 10.1vw;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.rating-badge {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    width: 9vw;
+    height: 3vh;
+    justify-content: space-around;
+}
+
+    .rating-badge i {
+        margin-left: 5px;
+    }
+
+.text-div {
+    /*background:blue;*/
+    width: 20vw;
+    height: 15vh;
+}
+
+.car-name-div {
+    /*background: yellow;*/
+    padding-left:2px;
+    width: 10vw;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    gap:5px;
+    align-items:center;
+    
+}
+
+.car-and-price-div {
+    /*background: green;*/
+    display:flex;
+    height: 10vh;
+    justify-content:space-between;
+}
+
+.basic-details {
+    text-align: center;
+    font-size: 10px;
+}
+
+.test-car-name {
+    width:15vh;
+    text-align: left;
+    font-size: 20px;
+}
+
+.test-price-box {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background: yellow;
+    margin-right:10px;
+    height: 3vh;
+    margin-top:4vh;
+    width: 9vw;
+}
+
+.test-line-div{
+    margin-left:1vw;
+    width:18vw;
+}
+
+.lets-see{
+    height:10vh;
+    width:10vw;
+/*    background:red;*/
+}
+
+.yo-yo{
+    display:flex;
+    flex-direction:column;
+    height:90vh;
+}

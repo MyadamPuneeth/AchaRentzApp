@@ -1,0 +1,110 @@
+﻿/* Car tile component styles */
+
+.car-image {
+    background-image: url('/images/CarsListingPageSwiftImg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: last baseline;
+    width: 24vw;
+    height: 33vh;
+}
+
+.main-car-info {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.car-info {
+    padding: 15px;
+}
+
+.car-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.trips-count {
+    color: white;
+    font-size: 12px;
+}
+
+.car-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: -4vh;
+}
+
+.main-car-info h6 {
+    color: #898989;
+    font-weight: lighter;
+    margin-bottom: 2vh;
+}
+
+.car-info p {
+    color: #B3B3B3;
+}
+
+.car-pricing {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: -1px;
+    margin-top: 10px;
+    width: 23vw;
+}
+
+.discounted-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #E53935;
+    margin-right: 10px;
+}
+
+.original-price {
+    text-decoration: line-through;
+    font-size: 14px;
+    color: #757575;
+}
+
+.total-price {
+    font-size: 14px;
+    color: #B3B3B3;
+}
+
+.fees-exclusion {
+    font-size: 12px;
+    color: #757575;
+}
+
+.car-location {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+    .car-location i {
+        margin-right: 5px;
+    }
+
+.home-delivery-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EAEAEA;
+    color: black;
+    border: none;
+    cursor: pointer;
+    width: 7vw;
+    height: 4vh;
+    font-size: 10px;
+}
