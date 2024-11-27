@@ -2,6 +2,7 @@
 using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using PresentationLayer.ViewModels;
+using AchaRentzBLL.DTO;
 
 namespace PresentationLayer.Controllers
 {
@@ -26,6 +27,13 @@ namespace PresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var registrationDto = new RegistrationDto
+                {
+                    UserName = user.UserName,
+                    Password = user.Password,
+                };
+
                 await UserService.AddUserAsync(user); // Use the service to add user
                 HttpContext.Session.SetInt32("UserId", user.UserId);
                 return RedirectToAction("ExtraDetails", new { id = user.UserId });
