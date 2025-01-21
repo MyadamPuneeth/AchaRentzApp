@@ -19,34 +19,34 @@ namespace AchaRentzDAL.Repositories
             Context = context;
         }
 
-        public async Task AddCar(CarDetails car)
+        public async Task AddCar(CarDetail car)
         {
-            await Context.CarDetails.AddAsync(car);
+            await Context.CarDetail.AddAsync(car);
         }
 
         public async Task DeleteCar(int id)
         {
-            var car = await Context.CarDetails.SingleOrDefaultAsync(u => u.CarId == id);
+            var car = await Context.CarDetail.SingleOrDefaultAsync(u => u.CarId == id);
             if (car != null)
             {
-                Context.CarDetails.Remove(car);
+                Context.CarDetail.Remove(car);
             }
-            
+
         }
 
-        public async Task<IEnumerable<CarDetails>> FindCars(Func<CarDetails, bool> predicate)
+        public async Task<IEnumerable<CarDetail>> FindCars(Func<CarDetail, bool> predicate)
         {
-            return Context.CarDetails.Where(predicate).ToList();
+            return Context.CarDetail.Where(predicate).ToList();
         }
 
-        public async Task<IEnumerable<CarDetails>> GetAllCars()
+        public async Task<IEnumerable<CarDetail>> GetAllCars()
         {
-            return Context.CarDetails.ToList();
+            return Context.CarDetail.ToList();
         }
 
-        public async Task<CarDetails> GetCarById(int id)
+        public async Task<CarDetail> GetCarById(int id)
         {
-            return await Context.CarDetails.SingleOrDefaultAsync(u => u.CarId == id);
+            return await Context.CarDetail.SingleOrDefaultAsync(u => u.CarId == id);
         }
 
         public async Task SaveCarChanges()
@@ -54,9 +54,9 @@ namespace AchaRentzDAL.Repositories
             Context.SaveChanges();
         }
 
-        public async Task UpdateCar(CarDetails car)
+        public async Task UpdateCar(CarDetail car)
         {
-            var existingCar = Context.CarDetails.Find(car.CarId);
+            var existingCar = Context.CarDetail.Find(car.CarId);
             if (existingCar != null)
             {
                 existingCar.Make = car.Make;
@@ -64,7 +64,7 @@ namespace AchaRentzDAL.Repositories
                 existingCar.Year = car.Year;
                 existingCar.Color = car.Color;
             }
-            Context.CarDetails.
+            Context.CarDetail.Update(car);
         }
     }
 
